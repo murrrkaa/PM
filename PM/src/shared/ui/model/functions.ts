@@ -396,14 +396,6 @@ export function changeSelectedElement(
   return {
     ...presentation,
     slides: updateSlides,
-    undoStack: [
-      ...(presentation.undoStack ?? []),
-      {
-        slides: presentation.slides,
-        selectedSlide: presentation.selectedSlide,
-      },
-    ],
-    redoStack: [],
   };
 }
 

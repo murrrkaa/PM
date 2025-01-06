@@ -25,7 +25,9 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
   };
 
   const handleBlur = () => {
-    dispatch(changeText(selected ?? "", content.id, currentValue.current, "text", isWriting.current));
+    if (content.text !== currentValue.current) {
+      dispatch(changeText(selected ?? "", content.id, currentValue.current, "text", isWriting.current));
+    }
     isWriting.current = true;
   }
   useEffect(() => {

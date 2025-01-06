@@ -12,18 +12,21 @@ import { v4 as uuid } from "uuid";
 export type Properties = "font" | "size" | "text";
 
 function isEqualState(
-  newState: string | boolean | Position,
-  lastState: string | boolean | Position,
+  newState: string | boolean | Position | Size,
+  lastState: string | boolean | Position | Size,
 ): boolean {
-  if (
-    typeof newState === "object" &&
-    "x" in newState &&
-    "y" in newState &&
-    typeof lastState === "object" &&
-    "x" in lastState &&
-    "y" in lastState
-  )
-    return newState.x === lastState.x && newState.y === lastState.y;
+  if (typeof newState === "object" && typeof lastState === "object") {
+    if ("x" in newState &&
+        "y" in newState && "x" in lastState &&
+        "y" in lastState) {
+      return newState.x === lastState.x && newState.y === lastState.y;
+    }
+    if ("height" in newState &&
+        "width" in newState && "height" in lastState &&
+        "width" in lastState) {
+      return newState.width === lastState.width && newState.height === lastState.height
+    }
+  }
   return newState === lastState;
 }
 

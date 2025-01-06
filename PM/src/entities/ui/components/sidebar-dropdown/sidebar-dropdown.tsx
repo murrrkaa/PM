@@ -10,7 +10,7 @@ interface IProp {
 export const SidebarDropdown: FC<IProp> = ({ activeMenu, closeMenu }) => {
   switch (activeMenu) {
     case TypeButtonEnum.Background:
-      return <EditingBackgroundMenu closeMenu={closeMenu} />;
+      return <EditingBackgroundMenu closeMenu={closeMenu} activeMenu={activeMenu}/>;
     case TypeButtonEnum.Text:
       // <EditingTextMenu closeMenu={closeMenu} />
       return null;

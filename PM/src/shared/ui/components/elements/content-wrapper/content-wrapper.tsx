@@ -48,7 +48,7 @@ export const ContentWrapper: FC<IProps> = ({
   useEffect(() => {
     if (
       startPosition.current.x === position.x &&
-      startPosition.current.y === position.y
+      startPosition.current.y === position.y && isDragging
     )
       return;
     if (!preview) {

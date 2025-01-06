@@ -50,7 +50,7 @@ export const ResizeHandle: FC<IProps> = ({
   useEffect(() => {
     if (
       startSize.current.width === size.width &&
-      startSize.current.height === size.height
+      startSize.current.height === size.height && isResize.current
     ) {
       return;
     }
@@ -74,6 +74,17 @@ export const ResizeHandle: FC<IProps> = ({
         ),
       );
   }, [position]);
+
+  useEffect(() => {
+    setSize({
+      height: content.size.height,
+      width: content.size.width,
+    })
+    startSize.current = {
+      height: content.size.height,
+      width: content.size.width,
+    };
+  }, [content.size.width, content.size.height])
 
   return (
     <div

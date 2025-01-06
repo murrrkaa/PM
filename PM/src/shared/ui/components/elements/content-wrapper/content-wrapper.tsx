@@ -94,14 +94,16 @@ export const ContentWrapper: FC<IProps> = ({
         width: "fit-content",
         height: "fit-content",
         position: "absolute",
+        padding: "10px",
         top: !previewScale
           ? content.position.y
           : content.position.y * previewScale,
         left: !previewScale
           ? content.position.x
           : content.position.x * previewScale,
-        border:
+        outline:
           content.selected && !preview && !slideShow ? "1px solid #444" : "",
+        outlineOffset: "-5px",
         pointerEvents: preview || slideShow ? "none" : "auto",
         cursor: isDragging ? "all-scroll" : "default",
       }}

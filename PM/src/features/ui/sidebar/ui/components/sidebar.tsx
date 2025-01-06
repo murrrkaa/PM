@@ -41,7 +41,7 @@ export const Sidebar = () => {
         width: size.width,
         height: size.height,
       },
-      selected: false,
+      selected: true,
     };
     handleAddContent(selected, newImage);
   };
@@ -53,8 +53,8 @@ export const Sidebar = () => {
           type: "text",
           id: uuid(),
           position: {
-            x: 100,
-            y: 100,
+            x: 0,
+            y: 0,
           },
           size: {
             height: 50,
@@ -62,8 +62,8 @@ export const Sidebar = () => {
           },
           fontSize: 24,
           font: "Arial",
-          text: "Введите текст",
-          selected: false,
+          text: "",
+          selected: true,
         });
         setActiveMenu(TypeButtonEnum.Text);
         break;

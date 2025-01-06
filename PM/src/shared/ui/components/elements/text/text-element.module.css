@@ -5,3 +5,7 @@
     border: none;
     background-color: transparent;
 }
+
+.textarea::placeholder {
+    color: #000;
+}

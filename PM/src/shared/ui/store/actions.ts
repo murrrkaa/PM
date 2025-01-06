@@ -146,6 +146,7 @@ export const changeText = (
   contentId: string,
   value: string,
   property: Properties,
+  isWriting: boolean
 ) => ({
   type: ActionEnum.CHANGE_TEXT_PROPERTIES,
   payload: {
@@ -153,6 +154,7 @@ export const changeText = (
     contentId,
     value,
     property,
+    isWriting
   },
 });
 

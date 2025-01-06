@@ -106,13 +106,14 @@ const presentationReducer = (state = initialState, action: Action) => {
       return updateElementSize(state, slideId, contentId, newSize, isResize);
     }
     case ActionEnum.CHANGE_TEXT_PROPERTIES: {
-      const { slideId, contentId, value, property } = action.payload;
+      const { slideId, contentId, value, property, isWriting } = action.payload;
       return updateSlideTextProperties(
         state,
         slideId,
         contentId,
         value,
         property,
+        isWriting
       );
     }
     default:

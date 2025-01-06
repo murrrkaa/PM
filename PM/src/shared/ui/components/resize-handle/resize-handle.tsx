@@ -41,7 +41,7 @@ export const ResizeHandle: FC<IProps> = ({
   const dispatch = useDispatch();
   const selected = useSelector((state: RootState) => state.selectedSlide);
 
-  useResize(ref, resize, isResize, setSize, startSize, setPosition);
+  useResize(ref, resize, isResize, setSize, startSize, setPosition, setIsDragging);
 
   const handleResize = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();

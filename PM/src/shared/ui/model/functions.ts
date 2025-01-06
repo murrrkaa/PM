@@ -236,6 +236,7 @@ export function updateSlideTextProperties(
   textId: string,
   newProperty: string | Size,
   property: Properties,
+  isWriting: boolean
 ): Presentation {
   const slide = presentation.slides.find((el) => el.id === slideId);
   const foundText = slide?.content?.find((item) => item.id === textId);
@@ -264,7 +265,7 @@ export function updateSlideTextProperties(
   return {
     ...presentation,
     slides: updatedSlides,
-    undoStack: [
+    undoStack: isWriting ? [...(presentation.undoStack ?? [])] : [
       ...(presentation.undoStack ?? []),
       {
         selectedSlide: presentation.selectedSlide,

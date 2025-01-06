@@ -62,7 +62,7 @@ export const Sidebar = () => {
           },
           fontSize: 24,
           font: "Arial",
-          text: "Введите текст",
+          text: "",
           selected: false,
         });
         setActiveMenu(TypeButtonEnum.Text);

@@ -303,7 +303,6 @@ export const updateElementSize = (
   newSize: Size,
   isResizing: boolean,
 ) => {
-  console.log(isResizing, "IsResizing");
   const slide = presentation.slides.find((slide) => slide.id === slideId);
   const element = slide?.content.find((el) => el.id === contentId);
 

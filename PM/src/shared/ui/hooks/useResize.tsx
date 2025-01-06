@@ -10,6 +10,7 @@ export const useResize = (
   setSize: React.Dispatch<SetStateAction<Size>>,
   startSize: React.RefObject<Size>,
   setPosition: React.Dispatch<SetStateAction<Position>>,
+  setIsDragging: (state: boolean) => void
 ) => {
   const startMoveSize = useRef<Size>({
     height: startSize.current?.height ?? 0,
@@ -21,7 +22,7 @@ export const useResize = (
 
   useEffect(() => {
     const handleMouseUp = () => {
-      isResize.current = false;
+      setIsDragging(false)
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
@@ -31,6 +32,7 @@ export const useResize = (
       const dw = startPositionX.current - e.pageX;
       switch (resize.current?.corner) {
         case "top-middle": {
+          setIsDragging(true)
           setPosition((prev) => ({
             ...prev,
             y: prev.y - dh,
@@ -59,6 +61,7 @@ export const useResize = (
           break;
         }
         case "side-left": {
+          setIsDragging(true)
           setPosition((prev) => ({
             ...prev,
             x: prev.x - dw,
@@ -87,6 +90,7 @@ export const useResize = (
           break;
         }
         case "top-right": {
+          setIsDragging(true)
           setPosition((prev) => ({
             ...prev,
             y: prev.y - dh,
@@ -104,6 +108,7 @@ export const useResize = (
           break;
         }
         case "top-left": {
+          setIsDragging(true)
           setPosition((prev) => ({
             x: prev.x - dw,
             y: prev.y - dh,
@@ -134,6 +139,7 @@ export const useResize = (
           break;
         }
         case "bottom-left": {
+          setIsDragging(true)
           setPosition((prev) => ({
             ...prev,
             x: prev.x - dw,

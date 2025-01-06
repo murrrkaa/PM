@@ -23,18 +23,14 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
     dispatch(changeText(selected ?? "", content.id, e.target.value, "text", isWriting.current));
     currentValue.current = e.target.value
   };
-  const handleClick = () => {
-    ref.current?.focus();
-    ref.current?.setSelectionRange(content.text.length, content.text.length);
-  };
 
-  useEffect(() => {
+  const handleClick = () => {
     if (!content.selected) {
+      ref.current?.focus();
+    } else {
       ref.current?.blur();
-      isWriting.current = false;
-      dispatch(changeText(selected ?? "", content.id, currentValue.current, "text", isWriting.current));
     }
-  }, [content.selected]);
+  };
 
   const handleBlur = () => {
     isWriting.current = false;
@@ -43,6 +39,7 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
   useEffect(() => {
     currentValue.current = content.text
   }, [content.text]);
+
   return (
     <textarea
       placeholder={"Введите текст"}

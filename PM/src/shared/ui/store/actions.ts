@@ -76,11 +76,12 @@ export const setSelectedSlide = (slideId: string) => ({
   payload: slideId,
 });
 
-export const changeBackground = (slideId: string, background: Background) => ({
+export const changeBackground = (slideId: string, background: Background, activeMenu: string | null) => ({
   type: ActionEnum.CHANGE_BACKGROUND,
   payload: {
     id: slideId,
     value: background,
+    activeMenu
   },
 });
 

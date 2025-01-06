@@ -8,7 +8,7 @@ import {
 } from "../../../../../shared/ui/model/menu-item";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../shared/ui/store/store";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { SidebarDropdown } from "../../../../../entities/ui/components/sidebar-dropdown";
 import { v4 as uuid } from "uuid";
 import { redo, undo } from "../../../../../shared/ui/store/actions.ts";
@@ -26,6 +26,10 @@ export const Sidebar = () => {
   const handleCloseMenu = () => {
     setActiveMenu(null);
   };
+
+  useEffect(() => {
+    setActiveMenu(null)
+  }, [selected]);
 
   const handleChangeImage = (image: string, size: Size) => {
     const newImage: Image = {

@@ -351,11 +351,12 @@ export function changeBackgroundOfSlide(
   presentation: Presentation,
   slideId: string,
   newBackground: Background,
+  activeMenu: string | null
 ): Presentation {
   const slide = presentation.slides.find((slide) => slide.id === slideId);
   if (
     slide &&
-    isEqualState(slide.background?.background ?? "", newBackground.background)
+    isEqualState(slide.background?.background ?? "", newBackground.background) && !activeMenu
   ) {
     return presentation;
   }
@@ -366,7 +367,7 @@ export function changeBackgroundOfSlide(
   return {
     ...presentation,
     slides: updateSlides,
-    undoStack: [
+    undoStack: activeMenu ? [...(presentation.undoStack ?? [])] : [
       ...(presentation.undoStack ?? []),
       {
         slides: presentation.slides,

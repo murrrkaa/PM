@@ -25,8 +25,8 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
   };
 
   const handleBlur = () => {
-    isWriting.current = false;
     dispatch(changeText(selected ?? "", content.id, currentValue.current, "text", isWriting.current));
+    isWriting.current = true;
   }
   useEffect(() => {
     currentValue.current = content.text
@@ -35,9 +35,11 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
   useEffect(() => {
     if (!content.selected) {
       ref.current?.blur();
+      isWriting.current = false;
     } else {
       ref.current?.focus();
       ref.current?.setSelectionRange(content.text.length, content.text.length)
+      isWriting.current = true
     }
   }, [content.selected]);
 

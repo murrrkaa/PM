@@ -1,0 +1,10 @@
+.menu {
+    position: absolute;
+    width: 46px;
+    height: fit-content;
+    top: 104px;
+    right: 47px;
+    background-color: white;
+    box-shadow: 0 4px 15px -14px rgba(64,87,109,.3);
+    padding: 10px;
+}

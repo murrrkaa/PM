@@ -1,0 +1,16 @@
+.menu {
+    width: fit-content;
+}
+
+.menu__titles {
+    display: flex;
+    flex-direction: row;
+    margin-right: 50px;
+}
+
+.menu__content {
+    position: absolute;
+    z-index: 1;
+}
+
+

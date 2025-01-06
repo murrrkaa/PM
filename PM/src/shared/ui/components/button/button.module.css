@@ -1,0 +1,60 @@
+.button {
+    width: 304px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #202124;
+    line-height: 20px;
+    padding: 5px;
+}
+
+.button:hover {
+    background-color: #e1e3e6;
+}
+
+.button__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.button__item {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    text-align: left;
+    margin-left: 5px;
+}
+
+
+.button__icon {
+    width: fit-content;
+}
+
+.button__command {
+    color: #80868b;
+    font-weight: 500;
+    float: right;
+    padding: 0 0 0 24px;
+    text-align: right;
+}
+
+.button__input {
+    opacity: 1;
+    position: absolute;
+    cursor: pointer;
+}
+
+.input__title {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+input[type=file],
+input[type=file]::-webkit-file-upload-button {
+    cursor: pointer;
+    opacity: 0;
+}

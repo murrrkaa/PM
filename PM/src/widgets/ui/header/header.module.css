@@ -1,0 +1,49 @@
+.header {
+    padding: 10px;
+    height: auto;
+    background: linear-gradient(45deg, rgb(147, 51, 255), rgb(224, 94, 255));
+}
+
+.header__wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    min-width: fit-content;
+}
+
+.header__top {
+    margin: 0 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.title__presentation {
+    margin: 0 auto;
+}
+
+.title__input {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 22px;
+    padding: 2px 7px;
+    margin: 0 auto;
+}
+
+.title__input:focus {
+    border: 1px solid #e1e3e6;
+    background-color: transparent;
+    outline-offset: 0;
+    outline: 0;
+}
+
+.header__export{
+    margin-right: 30px;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}

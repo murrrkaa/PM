@@ -1,0 +1,11 @@
+.burger__menu {
+    height: fit-content;
+    width: fit-content;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    z-index: 1100;
+    border-radius: 6px;
+    margin-top: 10px;
+    background-color: #fff;
+}

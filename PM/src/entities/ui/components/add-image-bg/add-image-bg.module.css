@@ -1,0 +1,19 @@
+.menu__image_bg {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    position: relative;
+    cursor: pointer;
+}
+
+.input__item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    rotate: 180deg;
+    cursor: pointer;
+}

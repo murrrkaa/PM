@@ -1,0 +1,7 @@
+.textarea {
+    white-space: wrap;
+    outline: none;
+    resize: none;
+    border: none;
+    background-color: transparent;
+}

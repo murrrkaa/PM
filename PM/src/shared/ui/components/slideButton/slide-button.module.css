@@ -1,0 +1,23 @@
+.button {
+    cursor: pointer;
+    border-radius: 16px;
+    border: 2px solid #e1e3e6;
+    padding: 10px 14px;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    background-color: #fff;
+    transition: all .3s;
+}
+
+.button:hover {
+    background-color: #e1e3e6;
+}
+
+.button__item {
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    background-color: transparent;
+}

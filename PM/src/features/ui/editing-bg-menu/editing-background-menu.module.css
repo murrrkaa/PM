@@ -1,0 +1,54 @@
+.menu {
+    position: absolute;
+    top: 104px;
+    right: 47px;
+    width: 250px;
+    height: 400px;
+    background-color: white;
+    box-shadow: 0 4px 15px -14px rgba(64,87,109,.3);
+    padding: 10px;
+}
+
+.menu span {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.menu__colors {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+
+.menu__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.menu__close {
+    rotate: 45deg;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.menu__close:hover {
+    fill: #6B53FF;
+}
+
+.menu__delete_bg {
+    position: absolute;
+    bottom: 5px;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.menu__delete_bg:hover {
+    fill: #6B53FF;
+}
+
+

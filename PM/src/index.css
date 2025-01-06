@@ -1,0 +1,51 @@
+@font-face {
+    font-family: MotivaSans;
+    font-weight: 900;
+    font-style: normal;
+    src: local("MotivaSans"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Bold.woff2") format("woff2"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Bold.woff") format("woff"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Bold.eot") format("eot");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: MotivaSans;
+    font-weight: 500;
+    font-style: normal;
+    src: local("MotivaSans"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Medium.woff2") format("woff2"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Medium.woff") format("woff"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Medium.eot") format("eot");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: MotivaSans;
+    font-weight: 400;
+    font-style: normal;
+    src: local("MotivaSans"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Regular.woff2") format("woff2"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Regular.woff") format("woff"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Regular.eot") format("eot");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: MotivaSans;
+    font-weight: 300;
+    font-style: normal;
+    src: local("MotivaSans"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Light.woff2") format("woff2"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Light.woff2") format("woff"),
+    url("/PM/src/shared/ui/assets/fonts/MotivaSans-Light.woff2") format("eot");
+    font-display: swap;
+}
+
+* {
+    font-family: "MotivaSans", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}

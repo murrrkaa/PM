@@ -41,7 +41,7 @@ export const Sidebar = () => {
         width: size.width,
         height: size.height,
       },
-      selected: false,
+      selected: true,
     };
     handleAddContent(selected, newImage);
   };
@@ -63,7 +63,7 @@ export const Sidebar = () => {
           fontSize: 24,
           font: "Arial",
           text: "",
-          selected: false,
+          selected: true,
         });
         setActiveMenu(TypeButtonEnum.Text);
         break;

@@ -53,8 +53,8 @@ export const Sidebar = () => {
           type: "text",
           id: uuid(),
           position: {
-            x: 100,
-            y: 100,
+            x: 0,
+            y: 0,
           },
           size: {
             height: 50,

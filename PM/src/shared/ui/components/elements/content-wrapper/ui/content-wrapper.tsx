@@ -7,8 +7,8 @@ import { RootState } from "../../../../store/store.ts";
 import { setStateSelectedElements } from "../../../../store/actions.ts";
 import { changePositionElementOfSlide } from "../../../../store/actions.ts";
 import { ResizeHandles } from "../../../../../../features/ui/resize-handles";
-import style from './content-wrapper.module.css'
-import {useMemo} from "react";
+import style from "./content-wrapper.module.css";
+import { useMemo } from "react";
 
 interface IProps {
   slide: Slide;
@@ -35,10 +35,13 @@ export const ContentWrapper: FC<IProps> = ({
     dispatch(setStateSelectedElements(slideId, contentId));
   };
   const ref = useRef<HTMLDivElement>(null);
-  const startPosition = useMemo(() => ({
-    x: content.position.x * previewScale,
-    y: content.position.y * previewScale,
-  }), [content.position.x, content.position.y, previewScale]);
+  const startPosition = useMemo(
+    () => ({
+      x: content.position.x * previewScale,
+      y: content.position.y * previewScale,
+    }),
+    [content.position.x, content.position.y, previewScale],
+  );
 
   const [position, setPosition] = useState<Position>(startPosition);
 
@@ -77,7 +80,7 @@ export const ContentWrapper: FC<IProps> = ({
       style={{
         top: content.position.y * previewScale,
         left: content.position.x * previewScale,
-        border:
+        outline:
           content.selected && !preview && !slideShow ? "1px solid #444" : "",
         outlineOffset: "-5px",
         pointerEvents: preview || slideShow ? "none" : "auto",

@@ -8,7 +8,7 @@ import {
 } from "../../../../../shared/ui/model/menu-item";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../shared/ui/store/store";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { SidebarDropdown } from "../../../../../entities/ui/components/sidebar-dropdown";
 import { v4 as uuid } from "uuid";
 import { redo, undo } from "../../../../../shared/ui/store/actions.ts";
@@ -28,7 +28,7 @@ export const Sidebar = () => {
   };
 
   useEffect(() => {
-    setActiveMenu(null)
+    setActiveMenu(null);
   }, [selected]);
 
   const handleChangeImage = (image: string, size: Size) => {
@@ -53,22 +53,6 @@ export const Sidebar = () => {
   const handleClick = (item: IMenuItem) => {
     switch (item.type) {
       case TypeButtonEnum.Text:
-        handleAddContent(selected, {
-          type: "text",
-          id: uuid(),
-          position: {
-            x: 0,
-            y: 0,
-          },
-          size: {
-            height: 50,
-            width: 300,
-          },
-          fontSize: 24,
-          font: "Arial",
-          text: "",
-          selected: true,
-        });
         setActiveMenu(TypeButtonEnum.Text);
         break;
       case TypeButtonEnum.Delete:

@@ -1,10 +1,22 @@
 .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     position: absolute;
-    width: 46px;
-    height: fit-content;
+    width: 150px;
+    height: 100px;
     top: 104px;
     right: 47px;
     background-color: white;
     box-shadow: 0 4px 15px -14px rgba(64,87,109,.3);
     padding: 10px;
+    border-radius: 8px;
+}
+
+.menu__btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
 }

@@ -16,15 +16,24 @@ function isEqualState(
   lastState: string | boolean | Position | Size,
 ): boolean {
   if (typeof newState === "object" && typeof lastState === "object") {
-    if ("x" in newState &&
-        "y" in newState && "x" in lastState &&
-        "y" in lastState) {
+    if (
+      "x" in newState &&
+      "y" in newState &&
+      "x" in lastState &&
+      "y" in lastState
+    ) {
       return newState.x === lastState.x && newState.y === lastState.y;
     }
-    if ("height" in newState &&
-        "width" in newState && "height" in lastState &&
-        "width" in lastState) {
-      return newState.width === lastState.width && newState.height === lastState.height
+    if (
+      "height" in newState &&
+      "width" in newState &&
+      "height" in lastState &&
+      "width" in lastState
+    ) {
+      return (
+        newState.width === lastState.width &&
+        newState.height === lastState.height
+      );
     }
   }
   return newState === lastState;
@@ -198,10 +207,10 @@ export function changePositionElement(
   }
 
   if (isEqualState(position, foundElement.position)) {
-    console.log('equal')
-    console.log(position, foundElement.position)
-    return presentation
-  };
+    console.log("equal");
+    console.log(position, foundElement.position);
+    return presentation;
+  }
 
   const updateElement: Text | Image = {
     ...foundElement,
@@ -238,13 +247,13 @@ export function changePositionElement(
   };
 }
 
-export function updateSlideTextProperties(
+export function updateSlideText(
   presentation: Presentation,
   slideId: string,
   textId: string,
   newProperty: string | Size,
   property: Properties,
-  isWriting: boolean
+  isWriting: boolean,
 ): Presentation {
   const slide = presentation.slides.find((el) => el.id === slideId);
   const foundText = slide?.content?.find((item) => item.id === textId);
@@ -273,13 +282,15 @@ export function updateSlideTextProperties(
   return {
     ...presentation,
     slides: updatedSlides,
-    undoStack: isWriting ? [...(presentation.undoStack ?? [])] : [
-      ...(presentation.undoStack ?? []),
-      {
-        selectedSlide: presentation.selectedSlide,
-        slides: presentation.slides,
-      },
-    ],
+    undoStack: isWriting
+      ? [...(presentation.undoStack ?? [])]
+      : [
+          ...(presentation.undoStack ?? []),
+          {
+            selectedSlide: presentation.selectedSlide,
+            slides: presentation.slides,
+          },
+        ],
     redoStack: [],
   };
 }
@@ -355,12 +366,16 @@ export function changeBackgroundOfSlide(
   presentation: Presentation,
   slideId: string,
   newBackground: Background,
-  activeMenu: string | null
+  activeMenu: string | null,
 ): Presentation {
   const slide = presentation.slides.find((slide) => slide.id === slideId);
   if (
     slide &&
-    isEqualState(slide.background?.background ?? "", newBackground.background) && !activeMenu
+    isEqualState(
+      slide.background?.background ?? "",
+      newBackground.background,
+    ) &&
+    !activeMenu
   ) {
     return presentation;
   }
@@ -371,13 +386,15 @@ export function changeBackgroundOfSlide(
   return {
     ...presentation,
     slides: updateSlides,
-    undoStack: activeMenu ? [...(presentation.undoStack ?? [])] : [
-      ...(presentation.undoStack ?? []),
-      {
-        slides: presentation.slides,
-        selectedSlide: presentation.selectedSlide,
-      },
-    ],
+    undoStack: activeMenu
+      ? [...(presentation.undoStack ?? [])]
+      : [
+          ...(presentation.undoStack ?? []),
+          {
+            slides: presentation.slides,
+            selectedSlide: presentation.selectedSlide,
+          },
+        ],
     redoStack: [],
   };
 }

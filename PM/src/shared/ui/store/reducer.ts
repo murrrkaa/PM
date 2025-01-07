@@ -12,7 +12,7 @@ import {
   removeSlideFromPresentation,
   setSelectedSlideOfPresentation,
   updateElementSize,
-  updateSlideTextProperties,
+  updateSlideText,
 } from "../model/functions.ts";
 import { Presentation } from "../model/types.ts";
 import { Action } from "./actions.ts";
@@ -107,13 +107,13 @@ const presentationReducer = (state = initialState, action: Action) => {
     }
     case ActionEnum.CHANGE_TEXT_PROPERTIES: {
       const { slideId, contentId, value, property, isWriting } = action.payload;
-      return updateSlideTextProperties(
+      return updateSlideText(
         state,
         slideId,
         contentId,
         value,
         property,
-        isWriting
+        isWriting,
       );
     }
     default:

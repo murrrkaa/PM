@@ -29,8 +29,8 @@ export const EditingTextMenu: FC<IProp> = ({ closeMenu }) => {
         y: 0,
       },
       size: {
-        width: 200,
-        height: 100,
+        width: 210,
+        height: 30,
       },
       fontSize: 24,
       font: "Arial",

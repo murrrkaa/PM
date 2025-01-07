@@ -19,7 +19,7 @@ export const useSidebarActions = () => {
 
   const handleChangeBackground = useCallback(
     (slideId: string, newBackground: Background) => {
-      dispatch(changeBackground(slideId, newBackground));
+      dispatch(changeBackground(slideId, newBackground, null));
     },
     [],
   );

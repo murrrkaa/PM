@@ -11,6 +11,7 @@ import { Text } from "../../../shared/ui/model/types.ts";
 import { v4 as uuid } from "uuid";
 import { InputSelectColor } from "../../../shared/ui/components/input-select-color/ui";
 import { SelectFontMenu } from "../../../entities/ui/components/select-font-menu/ui";
+import { IconPlus } from "../../../shared/ui/icons/plus.tsx";
 
 interface IProp {
   closeMenu: () => void;
@@ -35,7 +36,7 @@ export const EditingTextMenu: FC<IProp> = ({ closeMenu }) => {
       fontSize: 24,
       font: "Arial",
       text: "",
-      selected: true,
+      selected: false,
     };
     dispatch(addContentToSlide(selected, newText));
   };
@@ -43,7 +44,16 @@ export const EditingTextMenu: FC<IProp> = ({ closeMenu }) => {
   const handleChangeColor = () => {};
   return (
     <div className={style.menu}>
-      <ChangeSizeFont />
+      <div className={style.menu__top}>
+        <ChangeSizeFont />
+        <div className={style.menu__close}>
+          <EditingSlide
+            icon={IconPlus}
+            description={"Закрыть меню"}
+            onClick={closeMenu}
+          />
+        </div>
+      </div>
       <div className={style.menu__btn}>
         <InputSelectColor
           icon={<IconChangeColorText />}

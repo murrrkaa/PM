@@ -3,7 +3,7 @@ import { IconPlus } from "../../../shared/ui/icons/plus.tsx";
 import { Palette } from "../palette";
 import { EditingSlide } from "../../../shared/ui/components/design-button";
 import { IconChangeColor } from "../../../shared/ui/icons/change-color.tsx";
-import {FC, useEffect, useRef} from "react";
+import { FC, useEffect, useRef } from "react";
 import { AddImageBg } from "../../../entities/ui/components/add-image-bg";
 import { IconDelete } from "../../../shared/ui/icons/delete.tsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,22 +14,26 @@ import { TypeBackground } from "../../../shared/ui/model/types.ts";
 
 interface IProps {
   closeMenu: () => void;
-  activeMenu: string | null
+  activeMenu: string | null;
 }
 
-export const EditingBackgroundMenu: FC<IProps> = ({ closeMenu , activeMenu}) => {
+export const EditingBackgroundMenu: FC<IProps> = ({
+  closeMenu,
+  activeMenu,
+}) => {
   const handleCloseMenu = () => {
     closeMenu();
-    if (saveBg.current) dispatch(changeBackground(selected, saveBg.current, null))
+    if (saveBg.current)
+      dispatch(changeBackground(selected, saveBg.current, null));
   };
 
   const dispatch = useDispatch();
   const selected = useSelector((state: RootState) => state.selectedSlide) ?? "";
-  const prevSelected = useRef(selected)
+  const prevSelected = useRef(selected);
   const saveBg = useRef<{
-      type: TypeBackground,
-      background: string
-  }>()
+    type: TypeBackground;
+    background: string;
+  }>();
 
   const handleChangeBg = (type: TypeBackground, background: string) => {
     const newBackground = {
@@ -37,16 +41,17 @@ export const EditingBackgroundMenu: FC<IProps> = ({ closeMenu , activeMenu}) => 
       background,
     };
     saveBg.current = {
-        type,
-        background
-    }
+      type,
+      background,
+    };
     dispatch(changeBackground(selected, newBackground, activeMenu));
   };
 
-    useEffect(() => {
-        if (saveBg.current) dispatch(changeBackground(prevSelected.current, saveBg.current, null))
-        prevSelected.current = selected
-    }, [selected]);
+  useEffect(() => {
+    if (saveBg.current)
+      dispatch(changeBackground(prevSelected.current, saveBg.current, null));
+    prevSelected.current = selected;
+  }, [selected]);
 
   return (
     <div className={style.menu}>

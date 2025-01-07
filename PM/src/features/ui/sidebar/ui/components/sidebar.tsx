@@ -45,7 +45,7 @@ export const Sidebar = () => {
         width: size.width,
         height: size.height,
       },
-      selected: true,
+      selected: false,
     };
     handleAddContent(selected, newImage);
   };

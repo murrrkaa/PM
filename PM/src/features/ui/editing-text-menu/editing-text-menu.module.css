@@ -13,10 +13,27 @@
     border-radius: 8px;
 }
 
+.menu__top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .menu__btn {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: start;
     gap: 8px;
+}
+
+.menu__close {
+    align-self: start;
+    rotate: 45deg;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.menu__close:hover {
+    fill: #6B53FF;
 }

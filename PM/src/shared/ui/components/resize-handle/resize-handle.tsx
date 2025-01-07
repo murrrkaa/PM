@@ -96,8 +96,8 @@ export const ResizeHandle: FC<IProps> = ({
       style={{
         display: content.selected && !preview ? "block" : "none",
         position: "absolute",
-        height: "15px",
-        width: "15px",
+        height: "10px",
+        width: "10px",
         backgroundColor: "white",
         borderRadius: "50%",
         borderWidth: "0.5px",

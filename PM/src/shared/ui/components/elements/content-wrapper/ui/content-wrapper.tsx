@@ -79,6 +79,7 @@ export const ContentWrapper: FC<IProps> = ({
         left: content.position.x * previewScale,
         border:
           content.selected && !preview && !slideShow ? "1px solid #444" : "",
+        outlineOffset: "-5px",
         pointerEvents: preview || slideShow ? "none" : "auto",
         cursor: isDragging ? "all-scroll" : "default",
       }}

@@ -35,16 +35,21 @@ export const EditingBackgroundMenu: FC<IProps> = ({
     background: string;
   }>();
 
-  const handleChangeBg = (type: TypeBackground, background: string) => {
-    const newBackground = {
-      type,
-      background,
-    };
-    saveBg.current = {
-      type,
-      background,
-    };
-    dispatch(changeBackground(selected, newBackground, activeMenu));
+  const handleChangeBg = (
+    type: TypeBackground | string,
+    background: string,
+  ) => {
+    if (type === "image" || type === "color" || type === "gradient") {
+      const newBackground: { type: TypeBackground; background: string } = {
+        type,
+        background,
+      };
+      saveBg.current = {
+        type,
+        background,
+      };
+      dispatch(changeBackground(selected, newBackground, activeMenu));
+    }
   };
 
   useEffect(() => {

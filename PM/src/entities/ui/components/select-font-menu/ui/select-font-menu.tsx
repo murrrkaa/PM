@@ -7,7 +7,7 @@ export const SelectFontMenu = () => {
       <div className={style.menu__wrapper}>
         <select className={style.menu__select}>
           {fonts.map((font) => (
-            <option>{font.name}</option>
+            <option key={font.name}>{font.name}</option>
           ))}
         </select>
       </div>

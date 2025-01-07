@@ -13,6 +13,7 @@ import {
   setSelectedSlideOfPresentation,
   updateElementSize,
   updateSlideText,
+  updateSlideTextProperties,
 } from "../model/functions.ts";
 import { Presentation } from "../model/types.ts";
 import { Action } from "./actions.ts";
@@ -105,7 +106,7 @@ const presentationReducer = (state = initialState, action: Action) => {
       const { slideId, contentId, newSize, isResize } = action.payload;
       return updateElementSize(state, slideId, contentId, newSize, isResize);
     }
-    case ActionEnum.CHANGE_TEXT_PROPERTIES: {
+    case ActionEnum.CHANGE_TEXT: {
       const { slideId, contentId, value, property, isWriting } = action.payload;
       return updateSlideText(
         state,
@@ -114,6 +115,16 @@ const presentationReducer = (state = initialState, action: Action) => {
         value,
         property,
         isWriting,
+      );
+    }
+    case ActionEnum.CHANGE_TEXT_PROPERTIES: {
+      const { slideId, property, newValue, activeMenu } = action.payload;
+      return updateSlideTextProperties(
+        state,
+        slideId,
+        property,
+        newValue,
+        activeMenu,
       );
     }
     default:

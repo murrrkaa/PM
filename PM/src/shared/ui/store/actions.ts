@@ -26,6 +26,7 @@ export enum ActionEnum {
   REDO = "REDO",
   COPY_SLIDE = "COPY_SLIDE",
   CHANGE_SIZE = "CHANGE_SIZE",
+  CHANGE_TEXT = "CHANGE_TEXT",
   CHANGE_TEXT_PROPERTIES = "CHANGE_TEXT_PROPERTIES",
 }
 
@@ -76,12 +77,16 @@ export const setSelectedSlide = (slideId: string) => ({
   payload: slideId,
 });
 
-export const changeBackground = (slideId: string, background: Background, activeMenu: string | null) => ({
+export const changeBackground = (
+  slideId: string,
+  background: Background,
+  activeMenu: string | null,
+) => ({
   type: ActionEnum.CHANGE_BACKGROUND,
   payload: {
     id: slideId,
     value: background,
-    activeMenu
+    activeMenu,
   },
 });
 
@@ -147,15 +152,30 @@ export const changeText = (
   contentId: string,
   value: string,
   property: Properties,
-  isWriting: boolean
+  isWriting: boolean,
 ) => ({
-  type: ActionEnum.CHANGE_TEXT_PROPERTIES,
+  type: ActionEnum.CHANGE_TEXT,
   payload: {
     slideId,
     contentId,
     value,
     property,
-    isWriting
+    isWriting,
+  },
+});
+
+export const changeTextProperty = (
+  slideId: string,
+  property: Properties,
+  newValue: string | number,
+  activeMenu: boolean,
+) => ({
+  type: ActionEnum.CHANGE_TEXT_PROPERTIES,
+  payload: {
+    slideId,
+    property,
+    newValue,
+    activeMenu,
   },
 });
 

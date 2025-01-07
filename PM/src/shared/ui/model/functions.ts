@@ -9,7 +9,7 @@ import {
 } from "./types";
 import { v4 as uuid } from "uuid";
 
-export type Properties = "font" | "size" | "text";
+export type Properties = "font" | "size" | "text" | "fontSize";
 
 function isEqualState(
   newState: string | boolean | Position | Size,
@@ -283,6 +283,45 @@ export function updateSlideText(
     ...presentation,
     slides: updatedSlides,
     undoStack: isWriting
+      ? [...(presentation.undoStack ?? [])]
+      : [
+          ...(presentation.undoStack ?? []),
+          {
+            selectedSlide: presentation.selectedSlide,
+            slides: presentation.slides,
+          },
+        ],
+    redoStack: [],
+  };
+}
+
+export function updateSlideTextProperties(
+  presentation: Presentation,
+  slideId: string,
+  property: Properties,
+  newValue: string | number,
+  activeMenu: boolean,
+) {
+  const slide = presentation.slides.find((slide) => slide.id === slideId);
+  if (!slide) return presentation;
+  const updateSlide = {
+    ...slide,
+    content: slide.content.map((el) => {
+      if (property in el && el.selected)
+        return {
+          ...el,
+          [property]: newValue,
+        };
+      return el;
+    }),
+  };
+  const updatedSlides = presentation.slides.map((slide) =>
+    slide.id === slideId ? updateSlide : slide,
+  );
+  return {
+    ...presentation,
+    slides: updatedSlides,
+    undoStack: activeMenu
       ? [...(presentation.undoStack ?? [])]
       : [
           ...(presentation.undoStack ?? []),

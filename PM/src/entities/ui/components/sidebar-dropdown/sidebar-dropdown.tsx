@@ -15,7 +15,7 @@ export const SidebarDropdown: FC<IProp> = ({ activeMenu, closeMenu }) => {
         <EditingBackgroundMenu closeMenu={closeMenu} activeMenu={activeMenu} />
       );
     case TypeButtonEnum.Text:
-      return <EditingTextMenu closeMenu={closeMenu} />;
+      return <EditingTextMenu closeMenu={closeMenu} activeMenu={activeMenu} />;
     default:
       return null;
   }

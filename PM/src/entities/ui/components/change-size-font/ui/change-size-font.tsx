@@ -16,17 +16,17 @@ export const ChangeSizeFont: FC<IProp> = ({ activeMenu }) => {
   const selected = useSelector((state: RootState) => state.selectedSlide);
   const saveFont = useRef<number | null>(null);
 
-  const [value, setValue] = useState<number>(24);
+  const [value, setValue] = useState<number | null>(null);
 
   const handleClickDecrement = () => {
     setValue((prev) => {
-      if (prev <= 6) return prev;
+      if (!prev || prev <= 6) return prev;
       return prev - 1;
     });
   };
   const handleClickIncrement = () => {
     setValue((prev) => {
-      if (prev >= 96) return prev;
+      if (!prev || prev >= 96) return prev;
       return prev + 1;
     });
   };
@@ -44,8 +44,10 @@ export const ChangeSizeFont: FC<IProp> = ({ activeMenu }) => {
   }, [activeMenu]);
 
   useEffect(() => {
-    dispatch(changeTextProperty(selected ?? "", "fontSize", value, true));
-    saveFont.current = value;
+    if (value) {
+      dispatch(changeTextProperty(selected ?? "", "fontSize", value, true));
+      saveFont.current = value;
+    }
   }, [value]);
 
   return (
@@ -59,7 +61,7 @@ export const ChangeSizeFont: FC<IProp> = ({ activeMenu }) => {
         <input
           type="text"
           className={style.menu__input}
-          value={value}
+          value={value ?? ""}
           onChange={handleChangeInput}
         />
         <EditingSlide

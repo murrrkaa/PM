@@ -1,0 +1,5 @@
+.content__wrapper {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+}

@@ -197,7 +197,11 @@ export function changePositionElement(
     return presentation;
   }
 
-  if (isEqualState(position, foundElement.position) && isDragging) return presentation;
+  if (isEqualState(position, foundElement.position)) {
+    console.log('equal')
+    console.log(position, foundElement.position)
+    return presentation
+  };
 
   const updateElement: Text | Image = {
     ...foundElement,

@@ -10,6 +10,7 @@ import { addContentToSlide } from "../../../shared/ui/store/actions.ts";
 import { Text } from "../../../shared/ui/model/types.ts";
 import { v4 as uuid } from "uuid";
 import { InputSelectColor } from "../../../shared/ui/components/input-select-color/ui";
+import { SelectFontMenu } from "../../../entities/ui/components/select-font-menu/ui";
 
 interface IProp {
   closeMenu: () => void;
@@ -54,6 +55,7 @@ export const EditingTextMenu: FC<IProp> = ({ closeMenu }) => {
           description={"Добавить текстовое поле"}
           onClick={handleAddText}
         />
+        <SelectFontMenu />
       </div>
     </div>
   );

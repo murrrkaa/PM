@@ -21,25 +21,19 @@ export const ChangeSizeFont: FC<IProp> = ({ activeMenu }) => {
   const handleClickDecrement = () => {
     setValue((prev) => {
       if (prev <= 6) return prev;
-      dispatch(changeTextProperty(selected ?? "", "fontSize", prev - 1, true));
-      saveFont.current = prev - 1;
       return prev - 1;
     });
   };
   const handleClickIncrement = () => {
     setValue((prev) => {
       if (prev >= 96) return prev;
-      dispatch(changeTextProperty(selected ?? "", "fontSize", prev + 1, true));
-      saveFont.current = prev - 1;
       return prev + 1;
     });
   };
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     const val = +e.target.value;
-    if (val >= 96 || isNaN(val)) return;
+    if (val > 96 || isNaN(val)) return;
     setValue(val);
-    saveFont.current = val;
-    dispatch(changeTextProperty(selected ?? "", "fontSize", val, true));
   };
 
   useEffect(() => {
@@ -48,6 +42,11 @@ export const ChangeSizeFont: FC<IProp> = ({ activeMenu }) => {
         changeTextProperty(selected ?? "", "fontSize", saveFont.current, false),
       );
   }, [activeMenu]);
+
+  useEffect(() => {
+    dispatch(changeTextProperty(selected ?? "", "fontSize", value, true));
+    saveFont.current = value;
+  }, [value]);
 
   return (
     <div className={style.menu}>

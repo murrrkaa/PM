@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Text, Image, Slide, Position } from "../../../model/types.ts";
+import { Text, Image, Slide, Position } from "../../../../model/types.ts";
 import * as React from "react";
 import { FC, useEffect, useRef, useState } from "react";
-import { useDragAndDrop } from "../../../hooks/useDragAndDrop.tsx";
-import { RootState } from "../../../store/store.ts";
-import { setStateSelectedElements } from "../../../store/actions.ts";
-import { changePositionElementOfSlide } from "../../../store/actions.ts";
-import { ResizeHandles } from "../../../../../features/ui/resize-handles";
+import { useDragAndDrop } from "../../../../hooks/useDragAndDrop.tsx";
+import { RootState } from "../../../../store/store.ts";
+import { setStateSelectedElements } from "../../../../store/actions.ts";
+import { changePositionElementOfSlide } from "../../../../store/actions.ts";
+import { ResizeHandles } from "../../../../../../features/ui/resize-handles";
+import style from './content-wrapper.module.css'
+import {useMemo} from "react";
 
 interface IProps {
   slide: Slide;
@@ -33,24 +35,15 @@ export const ContentWrapper: FC<IProps> = ({
     dispatch(setStateSelectedElements(slideId, contentId));
   };
   const ref = useRef<HTMLDivElement>(null);
+  const startPosition = useMemo(() => ({
+    x: content.position.x * previewScale,
+    y: content.position.y * previewScale,
+  }), [content.position.x, content.position.y, previewScale]);
 
-  const startPosition = useRef({
-    x: content.position.x * previewScale,
-    y: content.position.y * previewScale,
-  });
-  const [position, setPosition] = useState<Position>({
-    x: content.position.x * previewScale,
-    y: content.position.y * previewScale,
-  });
+  const [position, setPosition] = useState<Position>(startPosition);
 
   const [isDragging, setIsDragging] = useState(false);
-
   useEffect(() => {
-    if (
-      startPosition.current.x === position.x &&
-      startPosition.current.y === position.y && isDragging
-    )
-      return;
     if (!preview) {
       dispatch(
         changePositionElementOfSlide(
@@ -60,10 +53,6 @@ export const ContentWrapper: FC<IProps> = ({
           isDragging,
         ),
       );
-      startPosition.current = {
-        x: position.x,
-        y: position.y,
-      };
     }
   }, [position, isDragging]);
 
@@ -75,33 +64,20 @@ export const ContentWrapper: FC<IProps> = ({
   useDragAndDrop(ref, position, setPosition, isDragging, setIsDragging);
 
   useEffect(() => {
-    setPosition({
-      x: content.position.x,
-      y: content.position.y,
-    });
-    startPosition.current = {
-      x: position.x,
-      y: position.y,
-    };
-  }, [content.position.x, content.position.y]);
+    setPosition(startPosition);
+  }, [startPosition]);
+
   return (
     <div
       key={content.id}
       ref={ref}
       onMouseDown={handleMouseDown}
       onClick={() => handleClickElement(slide.id, content.id)}
+      className={style.content__wrapper}
       style={{
-        width: "fit-content",
-        height: "fit-content",
-        position: "absolute",
-        padding: "10px",
-        top: !previewScale
-          ? content.position.y
-          : content.position.y * previewScale,
-        left: !previewScale
-          ? content.position.x
-          : content.position.x * previewScale,
-        outline:
+        top: content.position.y * previewScale,
+        left: content.position.x * previewScale,
+        border:
           content.selected && !preview && !slideShow ? "1px solid #444" : "",
         outlineOffset: "-5px",
         pointerEvents: preview || slideShow ? "none" : "auto",

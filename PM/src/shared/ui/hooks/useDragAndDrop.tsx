@@ -26,8 +26,12 @@ export const useDragAndDrop = (
     }
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e: MouseEvent) => {
     setIsDragging(false);
+    startPosition.current = {
+      x: e.pageX,
+      y: e.pageY,
+    };
     document.removeEventListener("mouseup", handleMouseUp);
     document.removeEventListener("mousemove", handleMouseMove);
   };

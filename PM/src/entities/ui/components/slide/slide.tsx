@@ -1,7 +1,7 @@
 import style from "./slide.module.css";
 import { Slide } from "../../../../shared/ui/model/types.ts";
 import { FC } from "react";
-import { ContentWrapper } from "../../../../shared/ui/components/elements/content-wrapper/content-wrapper.tsx";
+import { ContentWrapper } from "../../../../shared/ui/components/elements/content-wrapper/ui";
 import { TextElement } from "../../../../shared/ui/components/elements/text/text-element.tsx";
 import { ImageElement } from "../../../../shared/ui/components/elements/image/image-element.tsx";
 import { useSelector } from "react-redux";

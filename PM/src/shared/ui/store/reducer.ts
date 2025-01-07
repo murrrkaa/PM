@@ -48,8 +48,8 @@ const presentationReducer = (state = initialState, action: Action) => {
       return changePositionOfSlide(state, slide, index);
     }
     case ActionEnum.CHANGE_BACKGROUND: {
-      const { id, value } = action.payload;
-      return changeBackgroundOfSlide(state, id, value);
+      const { id, value, activeMenu } = action.payload;
+      return changeBackgroundOfSlide(state, id, value, activeMenu);
     }
     case ActionEnum.ADD_CONTENT_TO_SLIDE: {
       const { id, value } = action.payload;

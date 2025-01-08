@@ -6,12 +6,16 @@ import { EditingSlide } from "../../../shared/ui/components/design-button";
 import { ChangeSizeFont } from "../../../entities/ui/components/change-size-font/ui";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../shared/ui/store/store.ts";
-import { addContentToSlide } from "../../../shared/ui/store/actions.ts";
+import {
+  addContentToSlide,
+  changeTextProperty,
+} from "../../../shared/ui/store/actions.ts";
 import { Text } from "../../../shared/ui/model/types.ts";
 import { v4 as uuid } from "uuid";
 import { InputSelectColor } from "../../../shared/ui/components/input-select-color/ui";
 import { SelectFontMenu } from "../../../entities/ui/components/select-font-menu/ui";
 import { IconPlus } from "../../../shared/ui/icons/plus.tsx";
+import { Properties } from "../../../shared/ui/model/functions.ts";
 
 interface IProps {
   closeMenu: () => void;
@@ -34,6 +38,7 @@ export const EditingTextMenu: FC<IProps> = ({ closeMenu, activeMenu }) => {
         width: 210,
         height: 30,
       },
+      color: "000",
       fontSize: 24,
       font: "Arial",
       text: "",
@@ -42,14 +47,26 @@ export const EditingTextMenu: FC<IProps> = ({ closeMenu, activeMenu }) => {
     dispatch(addContentToSlide(selected, newText));
   };
 
+  const handleChangePropertyValue = (
+    property: Properties | string,
+    newValue: string | number,
+  ) => {
+    if (
+      property === "color" ||
+      property === "fontSize" ||
+      property === "font"
+    ) {
+      dispatch(changeTextProperty(selected, property, newValue, !!activeMenu));
+    }
+  };
+
   const handleCloseMenu = () => {
     closeMenu();
   };
-  const handleChangeColor = () => {};
   return (
     <div className={style.menu}>
       <div className={style.menu__top}>
-        <ChangeSizeFont activeMenu={activeMenu} />
+        <ChangeSizeFont onChange={handleChangePropertyValue} />
         <div className={style.menu__close}>
           <EditingSlide
             icon={IconPlus}
@@ -62,14 +79,14 @@ export const EditingTextMenu: FC<IProps> = ({ closeMenu, activeMenu }) => {
         <InputSelectColor
           icon={<IconChangeColorText />}
           description={"Изменить цвет"}
-          onChange={handleChangeColor}
+          onChange={handleChangePropertyValue}
         />
         <EditingSlide
           icon={IconAddText}
           description={"Добавить текстовое поле"}
           onClick={handleAddText}
         />
-        <SelectFontMenu />
+        <SelectFontMenu onChange={handleChangePropertyValue} />
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import {
 } from "./types";
 import { v4 as uuid } from "uuid";
 
-export type Properties = "font" | "size" | "text" | "fontSize";
+export type Properties = "font" | "size" | "text" | "fontSize" | "color";
 
 function isEqualState(
   newState: string | boolean | Position | Size,
@@ -315,6 +315,7 @@ export function updateSlideTextProperties(
       return el;
     }),
   };
+  console.log(updateSlide, property);
   const updatedSlides = presentation.slides.map((slide) =>
     slide.id === slideId ? updateSlide : slide,
   );

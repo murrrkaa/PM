@@ -2,20 +2,14 @@ import style from "./change-size-font.module.css";
 import { EditingSlide } from "../../../../../shared/ui/components/design-button";
 import { IconMinus } from "../../../../../shared/ui/icons/minus.tsx";
 import { IconPlus } from "../../../../../shared/ui/icons/plus.tsx";
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../../shared/ui/store/store.ts";
-import { changeTextProperty } from "../../../../../shared/ui/store/actions.ts";
+import { ChangeEvent, FC, useEffect, useState } from "react";
+import { Properties } from "../../../../../shared/ui/model/functions.ts";
 
 interface IProp {
-  activeMenu: string | null;
+  onChange: (property: Properties | string, value: string | number) => void;
 }
 
-export const ChangeSizeFont: FC<IProp> = ({ activeMenu }) => {
-  const dispatch = useDispatch();
-  const selected = useSelector((state: RootState) => state.selectedSlide);
-  const saveFont = useRef<number | null>(null);
-
+export const ChangeSizeFont: FC<IProp> = ({ onChange }) => {
   const [value, setValue] = useState<number | null>(null);
 
   const handleClickDecrement = () => {
@@ -37,16 +31,8 @@ export const ChangeSizeFont: FC<IProp> = ({ activeMenu }) => {
   };
 
   useEffect(() => {
-    if (activeMenu && saveFont.current)
-      dispatch(
-        changeTextProperty(selected ?? "", "fontSize", saveFont.current, false),
-      );
-  }, [activeMenu]);
-
-  useEffect(() => {
     if (value) {
-      dispatch(changeTextProperty(selected ?? "", "fontSize", value, true));
-      saveFont.current = value;
+      onChange("fontSize", value);
     }
   }, [value]);
 

@@ -1,7 +1,7 @@
-import { Presentation, Slide } from "../../shared/ui/model/types";
+import { Slide } from "../../shared/ui/model/types";
 import { jsPDF } from "jspdf";
 
-export const saveDocument = (state: Presentation) => {
+export const saveDocument = (state: Slide[]) => {
   const jsonFile = JSON.stringify(state);
   const blob = new Blob([jsonFile], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -15,16 +15,16 @@ export const saveDocument = (state: Presentation) => {
 };
 
 export const createPDF = (
-  presentation: Presentation,
+  slides: Slide[],
+  title: string,
 ): { url: string; pdf: jsPDF } => {
   const pdf = new jsPDF("landscape", "mm", [317, 185]);
 
-  const title = presentation.title;
   pdf.setProperties({
     title,
   });
 
-  presentation.slides.forEach((slide: Slide, index: number) => {
+  slides.forEach((slide: Slide, index: number) => {
     if (index) pdf.addPage();
     if (slide.background) {
       if (slide.background.type === "color") {

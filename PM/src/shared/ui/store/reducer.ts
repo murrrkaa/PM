@@ -10,6 +10,7 @@ import {
   changeSelectedElement,
   removeContentFromSlide,
   removeSlideFromPresentation,
+  saveTextProperties,
   setSelectedSlideOfPresentation,
   updateElementSize,
   updateSlideText,
@@ -126,6 +127,10 @@ const presentationReducer = (state = initialState, action: Action) => {
         newValue,
         activeMenu,
       );
+    }
+    case ActionEnum.SAVE_TEXT_PROPERTIES: {
+      const { slideId, data } = action.payload;
+      return saveTextProperties(state, slideId, data);
     }
     default:
       return state;

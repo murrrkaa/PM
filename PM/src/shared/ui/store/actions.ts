@@ -28,6 +28,7 @@ export enum ActionEnum {
   CHANGE_SIZE = "CHANGE_SIZE",
   CHANGE_TEXT = "CHANGE_TEXT",
   CHANGE_TEXT_PROPERTIES = "CHANGE_TEXT_PROPERTIES",
+  SAVE_TEXT_PROPERTIES = "SAVE_TEXT_PROPERTIES",
 }
 
 export const changeTitle = (title: string) => ({
@@ -176,6 +177,17 @@ export const changeTextProperty = (
     property,
     newValue,
     activeMenu,
+  },
+});
+
+export const saveTextProperties = (
+  slideId: string,
+  data: { color: string | null; fontSize: number | null; font: string | null },
+) => ({
+  type: ActionEnum.SAVE_TEXT_PROPERTIES,
+  payload: {
+    slideId,
+    data,
   },
 });
 

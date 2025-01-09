@@ -20,7 +20,7 @@ export const Button: FC<ButtonProps> = ({
             <input
               type="file"
               className={style.button__input}
-              onChange={(event) => onChange?.(event, item)}
+              onChange={(e) => onChange?.(e, item)}
             />
             <span className={style.input__title}>{children}</span>
           </>

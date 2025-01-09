@@ -315,7 +315,6 @@ export function updateSlideTextProperties(
       return el;
     }),
   };
-  console.log(updateSlide, property);
   const updatedSlides = presentation.slides.map((slide) =>
     slide.id === slideId ? updateSlide : slide,
   );
@@ -331,6 +330,48 @@ export function updateSlideTextProperties(
             slides: presentation.slides,
           },
         ],
+    redoStack: [],
+  };
+}
+
+export function saveTextProperties(
+  presentation: Presentation,
+  slideId: string,
+  data: { color: string | null; fontSize: number | null; font: string | null },
+) {
+  if (!data.color && !data.font && !data.fontSize) return presentation;
+
+  const slide = presentation.slides.find((slide) => slide.id === slideId);
+
+  const updateSlide = {
+    ...slide,
+    content: slide?.content.map((el) => {
+      if (el.type === "text" && el.selected) {
+        return {
+          ...el,
+          color: data.color ?? el.color,
+          font: data.font ?? el.font,
+          fontSize: data.fontSize ?? el.fontSize,
+        };
+      }
+      return el;
+    }),
+  };
+
+  const updateSlides = presentation.slides.map((slide) =>
+    slide.id === slideId ? updateSlide : slide,
+  );
+
+  return {
+    ...presentation,
+    slides: updateSlides,
+    undoStack: [
+      ...(presentation.undoStack ?? []),
+      {
+        selectedSlide: presentation.selectedSlide,
+        slides: presentation.slides,
+      },
+    ],
     redoStack: [],
   };
 }

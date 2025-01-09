@@ -1,5 +1,5 @@
 import style from "./editing-text-menu.module.css";
-import { FC } from "react";
+import { FC, useRef } from "react";
 import { IconChangeColorText } from "../../../shared/ui/icons/change-color-text";
 import { IconAddText } from "../../../shared/ui/icons/add-text";
 import { EditingSlide } from "../../../shared/ui/components/design-button";
@@ -9,6 +9,7 @@ import { RootState } from "../../../shared/ui/store/store.ts";
 import {
   addContentToSlide,
   changeTextProperty,
+  saveTextProperties,
 } from "../../../shared/ui/store/actions.ts";
 import { Text } from "../../../shared/ui/model/types.ts";
 import { v4 as uuid } from "uuid";
@@ -25,6 +26,10 @@ interface IProps {
 export const EditingTextMenu: FC<IProps> = ({ closeMenu, activeMenu }) => {
   const selected = useSelector((state: RootState) => state.selectedSlide) ?? "";
   const dispatch = useDispatch();
+
+  const saveFontSize = useRef<number | null>(null);
+  const saveColor = useRef<string | null>(null);
+  const saveFont = useRef<string | null>(null);
 
   const handleAddText = () => {
     const newText: Text = {
@@ -51,6 +56,12 @@ export const EditingTextMenu: FC<IProps> = ({ closeMenu, activeMenu }) => {
     property: Properties | string,
     newValue: string | number,
   ) => {
+    if (property === "color" && typeof newValue === "string")
+      saveColor.current = newValue;
+    if (property === "fontSize" && typeof newValue === "number")
+      saveFontSize.current = newValue;
+    if (property === "font" && typeof newValue === "string")
+      saveFont.current = newValue;
     if (
       property === "color" ||
       property === "fontSize" ||
@@ -60,9 +71,23 @@ export const EditingTextMenu: FC<IProps> = ({ closeMenu, activeMenu }) => {
     }
   };
 
+  const handleSaveData = () => {
+    const data = {
+      color: saveColor.current,
+      fontSize: saveFontSize.current,
+      font: saveFont.current,
+    };
+    dispatch(saveTextProperties(selected, data));
+  };
+
   const handleCloseMenu = () => {
+    handleSaveData();
+    saveColor.current = null;
+    saveFontSize.current = null;
+    saveFont.current = null;
     closeMenu();
   };
+
   return (
     <div className={style.menu}>
       <div className={style.menu__top}>

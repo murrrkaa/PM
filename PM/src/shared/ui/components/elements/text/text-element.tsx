@@ -16,6 +16,7 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
   const selected = useSelector((state: RootState) => state.selectedSlide);
 
   const currentValue = useRef(content.text);
+  const initialValue = useRef(content.text);
   const isWriting = useRef(false);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -33,7 +34,7 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
   };
 
   const handleBlur = () => {
-    if (content.text !== currentValue.current) {
+    if (initialValue.current === currentValue.current)
       dispatch(
         changeText(
           selected ?? "",
@@ -43,23 +44,23 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
           isWriting.current,
         ),
       );
-    }
-    isWriting.current = true;
   };
+
   useEffect(() => {
     currentValue.current = content.text;
   }, [content.text]);
 
   useEffect(() => {
     if (!content.selected) {
-      ref.current?.blur();
       isWriting.current = false;
+      ref.current?.blur();
     } else {
       ref.current?.focus();
       ref.current?.setSelectionRange(content.text.length, content.text.length);
       isWriting.current = true;
     }
   }, [content.selected]);
+
   return (
     <textarea
       placeholder={"Введите текст"}

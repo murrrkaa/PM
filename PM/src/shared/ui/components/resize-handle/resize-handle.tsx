@@ -41,7 +41,17 @@ export const ResizeHandle: FC<IProps> = ({
   const dispatch = useDispatch();
   const selected = useSelector((state: RootState) => state.selectedSlide);
 
-  useResize(ref, resize, isResize, setSize, startSize, setPosition, setIsDragging);
+  const startPosition = useRef<Position>(position);
+
+  useResize(
+    ref,
+    resize,
+    isResize,
+    setSize,
+    startSize,
+    setPosition,
+    setIsDragging,
+  );
 
   const handleResize = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -50,7 +60,8 @@ export const ResizeHandle: FC<IProps> = ({
   useEffect(() => {
     if (
       startSize.current.width === size.width &&
-      startSize.current.height === size.height && isResize.current
+      startSize.current.height === size.height &&
+      isResize.current
     ) {
       return;
     }
@@ -64,7 +75,14 @@ export const ResizeHandle: FC<IProps> = ({
   }, [size, isResize]);
 
   useEffect(() => {
-    if (isResize.current)
+    if (
+      startSize.current.width === size.width &&
+      startSize.current.height === size.height &&
+      isResize.current
+    ) {
+      return;
+    }
+    if (isResize.current && startPosition.current !== position) {
       dispatch(
         changePositionElementOfSlide(
           selected ?? "",
@@ -73,18 +91,19 @@ export const ResizeHandle: FC<IProps> = ({
           isResize.current,
         ),
       );
+    }
   }, [position]);
 
   useEffect(() => {
     setSize({
       height: content.size.height,
       width: content.size.width,
-    })
+    });
     startSize.current = {
       height: content.size.height,
       width: content.size.width,
     };
-  }, [content.size.width, content.size.height])
+  }, [content.size.width, content.size.height]);
 
   return (
     <div

@@ -207,8 +207,6 @@ export function changePositionElement(
   }
 
   if (isEqualState(position, foundElement.position)) {
-    console.log("equal");
-    console.log(position, foundElement.position);
     return presentation;
   }
 

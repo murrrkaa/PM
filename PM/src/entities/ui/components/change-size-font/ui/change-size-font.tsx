@@ -20,7 +20,8 @@ export const ChangeSizeFont: FC<IProp> = ({ onChange }) => {
   };
   const handleClickIncrement = () => {
     setValue((prev) => {
-      if (!prev || prev >= 96) return prev;
+      if (!prev) return 6;
+      if (prev >= 96) return prev;
       return prev + 1;
     });
   };

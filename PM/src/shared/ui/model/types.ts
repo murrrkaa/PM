@@ -38,6 +38,7 @@ export type Text = {
   fontSize: number;
   font: string;
   text: string;
+  color: string;
   selected: boolean;
 };
 

@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, useEffect, useRef} from "react";
+import { ChangeEvent, FC, useEffect, useRef } from "react";
 import { Text } from "../../../model/types.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { changeText } from "../../../store/actions.ts";
@@ -15,23 +15,39 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
   const selected = useSelector((state: RootState) => state.selectedSlide);
 
-  const currentValue = useRef(content.text)
-  const isWriting = useRef(false)
+  const currentValue = useRef(content.text);
+  const isWriting = useRef(false);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     isWriting.current = true;
-    dispatch(changeText(selected ?? "", content.id, e.target.value, "text", isWriting.current));
-    currentValue.current = e.target.value
+    dispatch(
+      changeText(
+        selected ?? "",
+        content.id,
+        e.target.value,
+        "text",
+        isWriting.current,
+      ),
+    );
+    currentValue.current = e.target.value;
   };
 
   const handleBlur = () => {
     if (content.text !== currentValue.current) {
-      dispatch(changeText(selected ?? "", content.id, currentValue.current, "text", isWriting.current));
+      dispatch(
+        changeText(
+          selected ?? "",
+          content.id,
+          currentValue.current,
+          "text",
+          isWriting.current,
+        ),
+      );
     }
     isWriting.current = true;
-  }
+  };
   useEffect(() => {
-    currentValue.current = content.text
+    currentValue.current = content.text;
   }, [content.text]);
 
   useEffect(() => {
@@ -40,11 +56,10 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
       isWriting.current = false;
     } else {
       ref.current?.focus();
-      ref.current?.setSelectionRange(content.text.length, content.text.length)
-      isWriting.current = true
+      ref.current?.setSelectionRange(content.text.length, content.text.length);
+      isWriting.current = true;
     }
   }, [content.selected]);
-
   return (
     <textarea
       placeholder={"Введите текст"}
@@ -54,10 +69,11 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
       value={content.text}
       className={style.textarea}
       style={{
-        font: content.font,
+        fontFamily: content.font,
         fontSize: content.fontSize * previewScale,
         height: content.size.height * previewScale,
         width: content.size.width * previewScale,
+        color: content.color,
       }}
     />
   );

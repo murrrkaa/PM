@@ -1,0 +1,18 @@
+.menu__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu__input {
+    width: 60px;
+    height: 30px;
+    font-size: 18px;
+    text-align: center;
+}
+.menu__input::-webkit-outer-spin-button,
+.menu__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

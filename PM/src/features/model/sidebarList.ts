@@ -22,7 +22,7 @@ export const sidebarList: IMenu = {
       type: TypeButtonEnum.Image,
     },
     {
-      title: "Текстовое поле",
+      title: "Редактирование текста",
       icon: IconText,
       type: TypeButtonEnum.Text,
     },

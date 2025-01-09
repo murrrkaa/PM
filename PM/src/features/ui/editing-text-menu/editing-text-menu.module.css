@@ -1,10 +1,39 @@
 .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     position: absolute;
-    width: 46px;
-    height: fit-content;
+    width: 230px;
+    height: 130px;
     top: 104px;
     right: 47px;
     background-color: white;
     box-shadow: 0 4px 15px -14px rgba(64,87,109,.3);
     padding: 10px;
+    border-radius: 8px;
+}
+
+.menu__top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.menu__btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+}
+
+.menu__close {
+    align-self: start;
+    rotate: 45deg;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.menu__close:hover {
+    fill: #6B53FF;
 }

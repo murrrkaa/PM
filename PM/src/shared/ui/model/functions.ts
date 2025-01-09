@@ -9,22 +9,31 @@ import {
 } from "./types";
 import { v4 as uuid } from "uuid";
 
-export type Properties = "font" | "size" | "text";
+export type Properties = "font" | "size" | "text" | "fontSize" | "color";
 
 function isEqualState(
   newState: string | boolean | Position | Size,
   lastState: string | boolean | Position | Size,
 ): boolean {
   if (typeof newState === "object" && typeof lastState === "object") {
-    if ("x" in newState &&
-        "y" in newState && "x" in lastState &&
-        "y" in lastState) {
+    if (
+      "x" in newState &&
+      "y" in newState &&
+      "x" in lastState &&
+      "y" in lastState
+    ) {
       return newState.x === lastState.x && newState.y === lastState.y;
     }
-    if ("height" in newState &&
-        "width" in newState && "height" in lastState &&
-        "width" in lastState) {
-      return newState.width === lastState.width && newState.height === lastState.height
+    if (
+      "height" in newState &&
+      "width" in newState &&
+      "height" in lastState &&
+      "width" in lastState
+    ) {
+      return (
+        newState.width === lastState.width &&
+        newState.height === lastState.height
+      );
     }
   }
   return newState === lastState;
@@ -198,10 +207,10 @@ export function changePositionElement(
   }
 
   if (isEqualState(position, foundElement.position)) {
-    console.log('equal')
-    console.log(position, foundElement.position)
-    return presentation
-  };
+    console.log("equal");
+    console.log(position, foundElement.position);
+    return presentation;
+  }
 
   const updateElement: Text | Image = {
     ...foundElement,
@@ -238,13 +247,13 @@ export function changePositionElement(
   };
 }
 
-export function updateSlideTextProperties(
+export function updateSlideText(
   presentation: Presentation,
   slideId: string,
   textId: string,
   newProperty: string | Size,
   property: Properties,
-  isWriting: boolean
+  isWriting: boolean,
 ): Presentation {
   const slide = presentation.slides.find((el) => el.id === slideId);
   const foundText = slide?.content?.find((item) => item.id === textId);
@@ -273,7 +282,90 @@ export function updateSlideTextProperties(
   return {
     ...presentation,
     slides: updatedSlides,
-    undoStack: isWriting ? [...(presentation.undoStack ?? [])] : [
+    undoStack: isWriting
+      ? [...(presentation.undoStack ?? [])]
+      : [
+          ...(presentation.undoStack ?? []),
+          {
+            selectedSlide: presentation.selectedSlide,
+            slides: presentation.slides,
+          },
+        ],
+    redoStack: [],
+  };
+}
+
+export function updateSlideTextProperties(
+  presentation: Presentation,
+  slideId: string,
+  property: Properties,
+  newValue: string | number,
+  activeMenu: boolean,
+) {
+  const slide = presentation.slides.find((slide) => slide.id === slideId);
+  if (!slide) return presentation;
+  const updateSlide = {
+    ...slide,
+    content: slide.content.map((el) => {
+      if (property in el && el.selected)
+        return {
+          ...el,
+          [property]: newValue,
+        };
+      return el;
+    }),
+  };
+  const updatedSlides = presentation.slides.map((slide) =>
+    slide.id === slideId ? updateSlide : slide,
+  );
+  return {
+    ...presentation,
+    slides: updatedSlides,
+    undoStack: activeMenu
+      ? [...(presentation.undoStack ?? [])]
+      : [
+          ...(presentation.undoStack ?? []),
+          {
+            selectedSlide: presentation.selectedSlide,
+            slides: presentation.slides,
+          },
+        ],
+    redoStack: [],
+  };
+}
+
+export function saveTextProperties(
+  presentation: Presentation,
+  slideId: string,
+  data: { color: string | null; fontSize: number | null; font: string | null },
+) {
+  if (!data.color && !data.font && !data.fontSize) return presentation;
+
+  const slide = presentation.slides.find((slide) => slide.id === slideId);
+
+  const updateSlide = {
+    ...slide,
+    content: slide?.content.map((el) => {
+      if (el.type === "text" && el.selected) {
+        return {
+          ...el,
+          color: data.color ?? el.color,
+          font: data.font ?? el.font,
+          fontSize: data.fontSize ?? el.fontSize,
+        };
+      }
+      return el;
+    }),
+  };
+
+  const updateSlides = presentation.slides.map((slide) =>
+    slide.id === slideId ? updateSlide : slide,
+  );
+
+  return {
+    ...presentation,
+    slides: updateSlides,
+    undoStack: [
       ...(presentation.undoStack ?? []),
       {
         selectedSlide: presentation.selectedSlide,
@@ -355,12 +447,16 @@ export function changeBackgroundOfSlide(
   presentation: Presentation,
   slideId: string,
   newBackground: Background,
-  activeMenu: string | null
+  activeMenu: string | null,
 ): Presentation {
   const slide = presentation.slides.find((slide) => slide.id === slideId);
   if (
     slide &&
-    isEqualState(slide.background?.background ?? "", newBackground.background) && !activeMenu
+    isEqualState(
+      slide.background?.background ?? "",
+      newBackground.background,
+    ) &&
+    !activeMenu
   ) {
     return presentation;
   }
@@ -371,13 +467,15 @@ export function changeBackgroundOfSlide(
   return {
     ...presentation,
     slides: updateSlides,
-    undoStack: activeMenu ? [...(presentation.undoStack ?? [])] : [
-      ...(presentation.undoStack ?? []),
-      {
-        slides: presentation.slides,
-        selectedSlide: presentation.selectedSlide,
-      },
-    ],
+    undoStack: activeMenu
+      ? [...(presentation.undoStack ?? [])]
+      : [
+          ...(presentation.undoStack ?? []),
+          {
+            slides: presentation.slides,
+            selectedSlide: presentation.selectedSlide,
+          },
+        ],
     redoStack: [],
   };
 }

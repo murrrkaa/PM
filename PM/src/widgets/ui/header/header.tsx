@@ -14,7 +14,7 @@ import { createPDF, saveDocument } from "../../model/exportDocument";
 // import { ROUTES } from "../../../shared/ui/lib/routes.ts";
 
 export const Header = () => {
-  const presentation = useSelector((state: RootState) => state);
+  const slides = useSelector((state: RootState) => state.slides);
   const title = useSelector((state: RootState) => state?.title);
 
   // const navigate = useNavigate();
@@ -30,15 +30,15 @@ export const Header = () => {
   };
 
   const handleExportDocument = () => {
-    const { pdf } = createPDF(presentation);
-    pdf.save(presentation.title);
+    const { pdf } = createPDF(slides, title);
+    pdf.save(title);
     // navigate(ROUTES.PREVIEW_PRESENTATION, {
     //   state: { url },
     // });
   };
 
   const handleSaveDocument = () => {
-    saveDocument(presentation);
+    saveDocument(slides);
   };
 
   return (

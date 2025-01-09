@@ -1,6 +1,7 @@
 import { FC } from "react";
-import { TypeButtonEnum } from "../../../../shared/ui/model/menu-item.ts";
+import { TypeButtonEnum } from "../../../../shared/ui/model/menu-item";
 import { EditingBackgroundMenu } from "../../../../features/ui/editing-bg-menu";
+import { EditingTextMenu } from "../../../../features/ui/editing-text-menu";
 
 interface IProp {
   activeMenu: string | null;
@@ -10,10 +11,11 @@ interface IProp {
 export const SidebarDropdown: FC<IProp> = ({ activeMenu, closeMenu }) => {
   switch (activeMenu) {
     case TypeButtonEnum.Background:
-      return <EditingBackgroundMenu closeMenu={closeMenu} activeMenu={activeMenu}/>;
+      return (
+        <EditingBackgroundMenu closeMenu={closeMenu} activeMenu={activeMenu} />
+      );
     case TypeButtonEnum.Text:
-      // <EditingTextMenu closeMenu={closeMenu} />
-      return null;
+      return <EditingTextMenu closeMenu={closeMenu} activeMenu={activeMenu} />;
     default:
       return null;
   }

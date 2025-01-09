@@ -5,21 +5,3 @@
     gap: 8px;
     margin-top: 15px;
 }
-
-.input__color {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    outline: none;
-    border: none;
-    background-color: #6B53FF;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.select__item {
-    position: relative;
-}

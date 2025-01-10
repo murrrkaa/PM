@@ -35,6 +35,7 @@ export const ContentWrapper: FC<IProps> = ({
     dispatch(setStateSelectedElements(slideId, contentId));
   };
   const ref = useRef<HTMLDivElement>(null);
+
   const startPosition = useMemo(
     () => ({
       x: content.position.x * previewScale,
@@ -42,10 +43,12 @@ export const ContentWrapper: FC<IProps> = ({
     }),
     [content.position.x, content.position.y, previewScale],
   );
-
   const [position, setPosition] = useState<Position>(startPosition);
 
   const [isDragging, setIsDragging] = useState(false);
+
+  useDragAndDrop(ref, position, setPosition, isDragging, setIsDragging);
+
   useEffect(() => {
     if (!preview) {
       dispatch(
@@ -63,8 +66,6 @@ export const ContentWrapper: FC<IProps> = ({
     e.preventDefault();
     e.stopPropagation();
   };
-
-  useDragAndDrop(ref, position, setPosition, isDragging, setIsDragging);
 
   useEffect(() => {
     setPosition(startPosition);

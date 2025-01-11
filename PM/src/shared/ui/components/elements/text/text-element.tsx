@@ -26,6 +26,7 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
         selected ?? "",
         content.id,
         e.target.value,
+        initialValue.current,
         "text",
         isWriting.current,
       ),
@@ -34,16 +35,19 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
   };
 
   const handleBlur = () => {
-    if (initialValue.current === currentValue.current)
+    if (initialValue.current !== currentValue.current) {
       dispatch(
         changeText(
           selected ?? "",
           content.id,
           currentValue.current,
+          initialValue.current,
           "text",
           isWriting.current,
         ),
       );
+      initialValue.current = currentValue.current;
+    }
   };
 
   useEffect(() => {

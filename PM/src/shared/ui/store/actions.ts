@@ -154,6 +154,7 @@ export const changeText = (
   slideId: string,
   contentId: string,
   value: string,
+  initValue: string,
   property: Properties,
   isWriting: boolean,
 ) => ({
@@ -162,6 +163,7 @@ export const changeText = (
     slideId,
     contentId,
     value,
+    initValue,
     property,
     isWriting,
   },

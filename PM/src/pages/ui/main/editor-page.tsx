@@ -9,9 +9,11 @@ export const EditorPage = () => {
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") {
+        e.preventDefault();
         dispatch(undo());
       }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") {
+        e.preventDefault();
         dispatch(redo());
       }
     };

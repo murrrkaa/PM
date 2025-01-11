@@ -8,14 +8,18 @@ import {
 } from "../../../../../shared/ui/model/menu-item";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../shared/ui/store/store";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { SidebarDropdown } from "../../../../../entities/ui/components/sidebar-dropdown";
 import { v4 as uuid } from "uuid";
 import { redo, undo } from "../../../../../shared/ui/store/actions.ts";
 import { InputImage } from "../../../../../shared/ui/components/input-image";
-import { Image, Size } from "../../../../../shared/ui/model/types.ts";
+import { Image, Size, Slide } from "../../../../../shared/ui/model/types.ts";
 
-export const Sidebar = () => {
+interface IProp {
+  slide: Slide;
+}
+
+export const Sidebar: FC<IProp> = ({ slide }) => {
   const selected =
     useSelector((state: RootState) => state?.selectedSlide) ?? "";
   const dispatch = useDispatch();
@@ -90,7 +94,11 @@ export const Sidebar = () => {
         </div>
       ))}
       {activeMenu && (
-        <SidebarDropdown closeMenu={handleCloseMenu} activeMenu={activeMenu} />
+        <SidebarDropdown
+          closeMenu={handleCloseMenu}
+          activeMenu={activeMenu}
+          slide={slide}
+        />
       )}
     </div>
   );

@@ -445,23 +445,23 @@ export function changeBackgroundOfSlide(
   presentation: Presentation,
   slideId: string,
   newBackground: Background,
+  startBackground: Background,
   activeMenu: string | null,
 ): Presentation {
   const slide = presentation.slides.find((slide) => slide.id === slideId);
   if (
     slide &&
-    isEqualState(
-      slide.background?.background ?? "",
-      newBackground.background,
-    ) &&
+    isEqualState(startBackground.background, newBackground.background) &&
     !activeMenu
   ) {
     return presentation;
   }
+  const undoSlides = presentation.slides.map((slide) =>
+    slide.id === slideId ? { ...slide, background: startBackground } : slide,
+  );
   const updateSlides = presentation.slides.map((slide) =>
     slide.id == slideId ? { ...slide, background: newBackground } : slide,
   );
-
   return {
     ...presentation,
     slides: updateSlides,
@@ -470,7 +470,7 @@ export function changeBackgroundOfSlide(
       : [
           ...(presentation.undoStack ?? []),
           {
-            slides: presentation.slides,
+            slides: undoSlides,
             selectedSlide: presentation.selectedSlide,
           },
         ],

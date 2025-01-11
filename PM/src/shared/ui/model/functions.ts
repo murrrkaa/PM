@@ -250,6 +250,7 @@ export function updateSlideText(
   slideId: string,
   textId: string,
   newProperty: string | Size,
+  initValue: string,
   property: Properties,
   isWriting: boolean,
 ): Presentation {
@@ -276,6 +277,21 @@ export function updateSlideText(
         }
       : slide,
   );
+  const undoText = {
+    ...foundText,
+    text: initValue,
+  };
+  const undoSlides = presentation.slides.map((slide) =>
+    slide.id === slideId
+      ? {
+          ...slide,
+          content: [
+            ...(slide?.content?.filter((item) => item.id !== textId) ?? []),
+            undoText,
+          ],
+        }
+      : slide,
+  );
 
   return {
     ...presentation,
@@ -286,7 +302,7 @@ export function updateSlideText(
           ...(presentation.undoStack ?? []),
           {
             selectedSlide: presentation.selectedSlide,
-            slides: presentation.slides,
+            slides: undoSlides,
           },
         ],
     redoStack: [],

@@ -33,7 +33,12 @@ export const Main = () => {
 
   return (
     <main className={style.main}>
-      <div className={style.main__wrapper}>
+      <div
+        className={style.main__wrapper}
+        style={{
+          justifyContent: !slides?.length ? "center" : "space-between",
+        }}
+      >
         <div className={style["main__slides-preview"]}>
           {slides?.length > 0 && (
             <SlideButton

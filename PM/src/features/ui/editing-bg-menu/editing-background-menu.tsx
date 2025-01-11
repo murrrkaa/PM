@@ -3,7 +3,7 @@ import { IconPlus } from "../../../shared/ui/icons/plus.tsx";
 import { Palette } from "../palette";
 import { EditingSlide } from "../../../shared/ui/components/design-button";
 import { IconChangeColor } from "../../../shared/ui/icons/change-color.tsx";
-import { FC, useEffect, useMemo, useRef } from "react";
+import { FC, useMemo, useRef } from "react";
 import { AddImageBg } from "../../../entities/ui/components/add-image-bg";
 import { IconDelete } from "../../../shared/ui/icons/delete.tsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,15 +33,16 @@ export const EditingBackgroundMenu: FC<IProps> = ({
   );
   const handleCloseMenu = () => {
     closeMenu();
-    if (saveBg.current)
+    if (saveBg.current) {
       dispatch(
         changeBackground(selected, saveBg.current, startBackground, null),
       );
+    }
   };
 
   const dispatch = useDispatch();
   const selected = useSelector((state: RootState) => state.selectedSlide) ?? "";
-  const prevSelected = useRef(selected);
+
   const saveBg = useRef<{
     type: TypeBackground;
     background: string;
@@ -65,19 +66,6 @@ export const EditingBackgroundMenu: FC<IProps> = ({
       );
     }
   };
-
-  useEffect(() => {
-    if (saveBg.current)
-      dispatch(
-        changeBackground(
-          prevSelected.current,
-          saveBg.current,
-          startBackground,
-          null,
-        ),
-      );
-    prevSelected.current = selected;
-  }, [selected]);
 
   return (
     <div className={style.menu}>

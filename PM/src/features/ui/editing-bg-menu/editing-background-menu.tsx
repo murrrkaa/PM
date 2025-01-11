@@ -3,28 +3,40 @@ import { IconPlus } from "../../../shared/ui/icons/plus.tsx";
 import { Palette } from "../palette";
 import { EditingSlide } from "../../../shared/ui/components/design-button";
 import { IconChangeColor } from "../../../shared/ui/icons/change-color.tsx";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useMemo, useRef } from "react";
 import { AddImageBg } from "../../../entities/ui/components/add-image-bg";
 import { IconDelete } from "../../../shared/ui/icons/delete.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../shared/ui/store/store.ts";
 import { SelectColorBg } from "../../../entities/ui/components/select-color-bg";
 import { changeBackground } from "../../../shared/ui/store/actions.ts";
-import { TypeBackground } from "../../../shared/ui/model/types.ts";
+import {
+  Background,
+  Slide,
+  TypeBackground,
+} from "../../../shared/ui/model/types.ts";
 
 interface IProps {
   closeMenu: () => void;
   activeMenu: string | null;
+  slide: Slide;
 }
 
 export const EditingBackgroundMenu: FC<IProps> = ({
   closeMenu,
   activeMenu,
+  slide,
 }) => {
+  const startBackground: Background = useMemo(
+    () => slide.background ?? { type: "color", background: "#fff" },
+    [slide.id, activeMenu],
+  );
   const handleCloseMenu = () => {
     closeMenu();
     if (saveBg.current)
-      dispatch(changeBackground(selected, saveBg.current, null));
+      dispatch(
+        changeBackground(selected, saveBg.current, startBackground, null),
+      );
   };
 
   const dispatch = useDispatch();
@@ -48,13 +60,22 @@ export const EditingBackgroundMenu: FC<IProps> = ({
         type,
         background,
       };
-      dispatch(changeBackground(selected, newBackground, activeMenu));
+      dispatch(
+        changeBackground(selected, newBackground, startBackground, activeMenu),
+      );
     }
   };
 
   useEffect(() => {
     if (saveBg.current)
-      dispatch(changeBackground(prevSelected.current, saveBg.current, null));
+      dispatch(
+        changeBackground(
+          prevSelected.current,
+          saveBg.current,
+          startBackground,
+          null,
+        ),
+      );
     prevSelected.current = selected;
   }, [selected]);
 

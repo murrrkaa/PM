@@ -15,6 +15,7 @@ import { removeSlide } from "../../../shared/ui/store/actions.ts";
 export const Main = () => {
   const slides = useSelector((state: RootState) => state?.slides);
   const selected = useSelector((state: RootState) => state?.selectedSlide);
+  const slide = slides?.find((slide) => slide.id === selected);
 
   const dispatch = useDispatch();
 
@@ -78,7 +79,7 @@ export const Main = () => {
             )}
           </div>
         </div>
-        <Sidebar />
+        {slide && <Sidebar slide={slide} />}
       </div>
     </main>
   );

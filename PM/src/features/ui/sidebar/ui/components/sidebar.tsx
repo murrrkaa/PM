@@ -11,7 +11,11 @@ import { RootState } from "../../../../../shared/ui/store/store";
 import { FC, useEffect, useState } from "react";
 import { SidebarDropdown } from "../../../../../entities/ui/components/sidebar-dropdown";
 import { v4 as uuid } from "uuid";
-import { redo, undo } from "../../../../../shared/ui/store/actions.ts";
+import {
+  copySlide,
+  redo,
+  undo,
+} from "../../../../../shared/ui/store/actions.ts";
 import { InputImage } from "../../../../../shared/ui/components/input-image";
 import { Image, Size, Slide } from "../../../../../shared/ui/model/types.ts";
 
@@ -71,6 +75,9 @@ export const Sidebar: FC<IProp> = ({ slide }) => {
         break;
       case TypeButtonEnum.Redo:
         dispatch(redo());
+        break;
+      case TypeButtonEnum.DuplicateSlide:
+        dispatch(copySlide(selected));
         break;
       default:
         setActiveMenu(null);

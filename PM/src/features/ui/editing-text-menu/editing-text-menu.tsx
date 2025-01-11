@@ -50,6 +50,7 @@ export const EditingTextMenu: FC<IProps> = ({ closeMenu, activeMenu }) => {
       selected: false,
     };
     dispatch(addContentToSlide(selected, newText));
+    closeMenu();
   };
 
   const handleChangePropertyValue = (

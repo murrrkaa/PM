@@ -35,6 +35,7 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
   };
 
   const handleBlur = () => {
+    isWriting.current = false;
     if (initialValue.current !== currentValue.current) {
       dispatch(
         changeText(
@@ -56,7 +57,6 @@ export const TextElement: FC<IProps> = ({ content, previewScale }) => {
 
   useEffect(() => {
     if (!content.selected) {
-      isWriting.current = false;
       ref.current?.blur();
     } else {
       ref.current?.focus();

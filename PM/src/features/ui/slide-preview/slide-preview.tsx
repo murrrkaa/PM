@@ -135,7 +135,7 @@ export const SlidePreview: FC<IProps> = ({
             position: isDragging ? "absolute" : "static",
             zIndex: (isDragging && 1000) || 1,
             cursor: isDragging ? "pointer" : "default",
-            left: "30px",
+            left: "50px",
             transform: `translate(${position.x}px, ${position.y}px)`,
           }}
         >

@@ -206,7 +206,7 @@ export function changePositionElement(
     return presentation;
   }
 
-  if (isEqualState(position, foundElement.position)) {
+  if (isEqualState(position, foundElement.position) && isDragging) {
     return presentation;
   }
 

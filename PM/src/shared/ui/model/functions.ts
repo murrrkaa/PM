@@ -230,7 +230,6 @@ export function changePositionElement(
         }
       : slide,
   );
-  console.log(isDragging, wasDragging, "done");
   return {
     ...presentation,
     slides: updateSlides,

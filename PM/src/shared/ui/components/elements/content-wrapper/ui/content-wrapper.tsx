@@ -95,6 +95,7 @@ export const ContentWrapper: FC<IProps> = ({
         outlineOffset: "-5px",
         pointerEvents: preview || slideShow ? "none" : "auto",
         cursor: isDragging ? "all-scroll" : "default",
+        padding: `${10 * previewScale}px`,
       }}
     >
       <ResizeHandles

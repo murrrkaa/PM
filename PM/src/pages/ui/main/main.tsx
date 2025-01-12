@@ -9,8 +9,13 @@ import { IconDelete } from "../../../shared/ui/icons/delete";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../shared/ui/store/store";
 import { useDispatch } from "react-redux";
-import { addSlide, copySlide } from "../../../shared/ui/store/actions.ts";
+import {
+  addSlide,
+  copySlide,
+  setSelectedSlide,
+} from "../../../shared/ui/store/actions.ts";
 import { removeSlide } from "../../../shared/ui/store/actions.ts";
+import { useEffect } from "react";
 
 export const Main = () => {
   const slides = useSelector((state: RootState) => state?.slides);
@@ -30,6 +35,10 @@ export const Main = () => {
   const backupSlideHandler = () => {
     if (selected) dispatch(copySlide(selected));
   };
+
+  useEffect(() => {
+    if (slides[0]?.id) dispatch(setSelectedSlide(slides[0].id));
+  }, []);
 
   return (
     <main className={style.main}>

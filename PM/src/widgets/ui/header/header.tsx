@@ -1,5 +1,4 @@
 import style from "./header.module.css";
-import { useState } from "react";
 import { ChangeEvent } from "react";
 import { EditingSlide } from "../../../shared/ui/components/design-button";
 import { IconHome } from "../../../shared/ui/icons/home";
@@ -16,17 +15,12 @@ import { createPDF, saveDocument } from "../../model/exportDocument";
 export const Header = () => {
   const slides = useSelector((state: RootState) => state.slides);
   const title = useSelector((state: RootState) => state?.title);
-
   // const navigate = useNavigate();
-
-  const [value, setValue] = useState<string>(title);
-
   const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     dispatch(changeTitle(e.target.value));
-    setValue(e.target.value);
   };
 
   const handleExportDocument = () => {
@@ -38,7 +32,7 @@ export const Header = () => {
   };
 
   const handleSaveDocument = () => {
-    saveDocument(slides);
+    saveDocument(slides, title);
   };
 
   return (
@@ -52,7 +46,7 @@ export const Header = () => {
           <input
             onChange={handleChange}
             className={style.title__input}
-            value={value}
+            value={title}
             type="text"
             maxLength={100}
           />

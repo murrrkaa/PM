@@ -1,8 +1,12 @@
 import { Slide } from "../../shared/ui/model/types";
 import { jsPDF } from "jspdf";
 
-export const saveDocument = (state: Slide[]) => {
-  const jsonFile = JSON.stringify(state);
+export const saveDocument = (state: Slide[], title: string) => {
+  const newData = {
+    slides: state,
+    title,
+  };
+  const jsonFile = JSON.stringify(newData);
   const blob = new Blob([jsonFile], { type: "application/json" });
   const url = URL.createObjectURL(blob);
 

@@ -197,6 +197,7 @@ export function changePositionElement(
   elementId: string,
   position: Position,
   isDragging: boolean,
+  wasDragging: boolean,
 ): Presentation {
   const slide = presentation.slides.find((slide) => slide.id === slideId);
   const foundElement = slide?.content?.find(
@@ -206,7 +207,7 @@ export function changePositionElement(
     return presentation;
   }
 
-  if (isEqualState(position, foundElement.position) && isDragging) {
+  if (isEqualState(position, foundElement.position) && !wasDragging) {
     return presentation;
   }
 
@@ -229,6 +230,7 @@ export function changePositionElement(
         }
       : slide,
   );
+  console.log(isDragging, wasDragging, "done");
   return {
     ...presentation,
     slides: updateSlides,

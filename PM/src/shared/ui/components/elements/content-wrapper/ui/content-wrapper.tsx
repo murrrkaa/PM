@@ -46,8 +46,16 @@ export const ContentWrapper: FC<IProps> = ({
   const [position, setPosition] = useState<Position>(startPosition);
 
   const [isDragging, setIsDragging] = useState(false);
+  const [wasDragging, setWasDragging] = useState(false);
 
-  useDragAndDrop(ref, position, setPosition, isDragging, setIsDragging);
+  useDragAndDrop(
+    ref,
+    position,
+    setPosition,
+    isDragging,
+    setIsDragging,
+    setWasDragging,
+  );
 
   useEffect(() => {
     if (!preview) {
@@ -57,6 +65,7 @@ export const ContentWrapper: FC<IProps> = ({
           content.id,
           position,
           isDragging,
+          wasDragging,
         ),
       );
     }

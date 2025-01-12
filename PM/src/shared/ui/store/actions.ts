@@ -46,6 +46,7 @@ export const changePositionElementOfSlide = (
   elementId: string,
   position: Position,
   isDragging: boolean,
+  wasDragging: boolean,
 ) => ({
   type: ActionEnum.UPDATE_ELEMENTS_POSITION,
   payload: {
@@ -53,6 +54,7 @@ export const changePositionElementOfSlide = (
     elementId,
     position,
     isDragging,
+    wasDragging,
   },
 });
 

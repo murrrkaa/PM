@@ -71,13 +71,15 @@ const presentationReducer = (state = initialState, action: Action) => {
       return removeContentFromSlide(state, action.payload);
     }
     case ActionEnum.UPDATE_ELEMENTS_POSITION: {
-      const { slideId, elementId, position, isDragging } = action.payload;
+      const { slideId, elementId, position, isDragging, wasDragging } =
+        action.payload;
       return changePositionElement(
         state,
         slideId,
         elementId,
         position,
         isDragging,
+        wasDragging,
       );
     }
     case ActionEnum.UNDO: {

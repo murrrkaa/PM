@@ -8,6 +8,7 @@ export const useDragAndDrop = (
   setPosition: React.Dispatch<SetStateAction<Position>>,
   isDragging: boolean,
   setIsDragging: (state: boolean) => void,
+  setWasDragging: (state: boolean) => void,
 ) => {
   const startPosition = useRef<Position>(position);
   const handleMouseMove = (e: MouseEvent) => {
@@ -32,6 +33,7 @@ export const useDragAndDrop = (
       x: e.pageX,
       y: e.pageY,
     };
+    setWasDragging(true);
     document.removeEventListener("mouseup", handleMouseUp);
     document.removeEventListener("mousemove", handleMouseMove);
   };
@@ -42,6 +44,7 @@ export const useDragAndDrop = (
       x: e.pageX,
       y: e.pageY,
     };
+    setWasDragging(true);
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
   };

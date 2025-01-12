@@ -30,7 +30,10 @@ const initialState: Presentation = {
 const presentationReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case ActionEnum.IMPORT_PRESENTATION:
-      return action.payload;
+      return {
+        ...action.payload,
+        selectedSlide: action.payload.slides[0]?.id,
+      };
     case ActionEnum.CHANGE_NAME_PRESENTATION:
       return changeOfNamePresentation(state, action.payload);
     case ActionEnum.SET_DRAGGING_SLIDE:

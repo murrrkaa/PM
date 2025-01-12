@@ -19,6 +19,7 @@ export const importDocument = (
           onLoad(data as Presentation);
         } else {
           console.log("Невалидные данные");
+          console.log(data);
         }
       }
     } catch (error) {

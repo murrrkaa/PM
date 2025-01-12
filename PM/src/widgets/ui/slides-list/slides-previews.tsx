@@ -1,8 +1,9 @@
 import style from "./slides-previews.module.css";
 import { SlidePreview } from "../../../features/ui/slide-preview";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../shared/ui/store/store.ts";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { setSelectedSlide } from "../../../shared/ui/store/actions.ts";
 
 export interface IIndicator {
   indicator: HTMLDivElement | null;
@@ -11,10 +12,15 @@ export interface IIndicator {
 
 export const SlidesPreviews = () => {
   const slides = useSelector((state: RootState) => state?.slides);
+  const dispatch = useDispatch();
   const [indicators, setIndicators] = useState<(IIndicator | null)[]>([]);
   const [activeIndicator, setActiveIndicator] = useState<IIndicator | null>(
     null,
   );
+
+  useEffect(() => {
+    if (slides[0]?.id) dispatch(setSelectedSlide(slides[0].id));
+  }, []);
 
   const scrollSlideWrapper = useRef<HTMLDivElement | null>(null);
 

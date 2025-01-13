@@ -7,15 +7,9 @@ import { IconRepeat } from "../../shared/ui/icons/repeat.tsx";
 import { IconCancel } from "../../shared/ui/icons/cancel.tsx";
 import { TypeButtonEnum } from "../../shared/ui/model/menu-item.ts";
 import { IconDelete } from "../../shared/ui/icons/delete.tsx";
-import { IconSearchImage } from "../../shared/ui/icons/search-image.tsx";
 
 export const sidebarList: IMenu = {
   menuList: [
-    {
-      title: "Поиск картинки в интернете",
-      icon: IconSearchImage,
-      type: TypeButtonEnum.SearchImage,
-    },
     {
       title: "Изображение",
       icon: IconImage,

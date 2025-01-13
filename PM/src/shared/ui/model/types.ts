@@ -6,6 +6,7 @@ export type Position = {
 export interface IUndoRedoStack {
   selectedSlide?: string;
   slides?: Slide[];
+  title: string;
 }
 
 export type Presentation = {

@@ -46,6 +46,15 @@ export function changeOfNamePresentation(
   return {
     ...presentation,
     title: newTitle,
+    undoStack: [
+      ...(presentation.undoStack ?? []),
+      {
+        selectedSlide: presentation.selectedSlide,
+        slides: presentation.slides,
+        title: presentation.title,
+      },
+    ],
+    redoStack: [],
   };
 }
 
@@ -67,6 +76,7 @@ export function addSlideToPresentation(
       {
         selectedSlide: presentation.selectedSlide,
         slides: presentation.slides,
+        title: presentation.title,
       },
     ],
     redoStack: [],
@@ -99,6 +109,7 @@ export function removeSlideFromPresentation(
       {
         selectedSlide: presentation.selectedSlide,
         slides: presentation.slides,
+        title: presentation.title,
       },
     ],
     redoStack: [],
@@ -135,6 +146,7 @@ export function changePositionOfSlide(
       {
         slides: presentation.slides,
         selectedSlide: presentation.selectedSlide,
+        title: presentation.title,
       },
     ],
     redoStack: [],
@@ -159,6 +171,7 @@ export function addContentToSlide(
       {
         slides: presentation.slides,
         selectedSlide: presentation.selectedSlide,
+        title: presentation.title,
       },
     ],
     redoStack: [],
@@ -185,6 +198,7 @@ export function removeContentFromSlide(
       {
         slides: presentation.slides,
         selectedSlide: presentation.selectedSlide,
+        title: presentation.title,
       },
     ],
     redoStack: [],
@@ -240,6 +254,7 @@ export function changePositionElement(
           {
             slides: presentation.slides,
             selectedSlide: presentation.selectedSlide,
+            title: presentation.title,
           },
         ],
     redoStack: [],
@@ -304,6 +319,7 @@ export function updateSlideText(
           {
             selectedSlide: presentation.selectedSlide,
             slides: undoSlides,
+            title: presentation.title,
           },
         ],
     redoStack: [],
@@ -343,6 +359,7 @@ export function updateSlideTextProperties(
           {
             selectedSlide: presentation.selectedSlide,
             slides: presentation.slides,
+            title: presentation.title,
           },
         ],
     redoStack: [],
@@ -385,6 +402,7 @@ export function saveTextProperties(
       {
         selectedSlide: presentation.selectedSlide,
         slides: presentation.slides,
+        title: presentation.title,
       },
     ],
     redoStack: [],
@@ -452,6 +470,7 @@ export const updateElementSize = (
           {
             selectedSlide: presentation.selectedSlide,
             slides: presentation.slides,
+            title: presentation.title,
           },
         ],
     redoStack: [],
@@ -489,6 +508,7 @@ export function changeBackgroundOfSlide(
           {
             slides: undoSlides,
             selectedSlide: presentation.selectedSlide,
+            title: presentation.title,
           },
         ],
     redoStack: [],
@@ -534,6 +554,7 @@ export function setSelectedSlideOfPresentation(
       {
         slides: presentation.slides,
         selectedSlide: presentation.selectedSlide,
+        title: presentation.title,
       },
     ],
     redoStack: [],
@@ -570,6 +591,7 @@ export function backupSlide(presentation: Presentation, slideId: string) {
       {
         slides: presentation.slides,
         selectedSlide: presentation.selectedSlide,
+        title: presentation.title,
       },
     ],
     redoStack: [],

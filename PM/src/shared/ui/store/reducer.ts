@@ -93,6 +93,7 @@ const presentationReducer = (state = initialState, action: Action) => {
           ...state,
           selectedSlide: lastState.selectedSlide,
           slides: lastState.slides,
+          title: lastState.title,
           undoStack: state.undoStack.slice(0, -1),
           redoStack: [...(state.redoStack ?? []), state],
         };
@@ -106,6 +107,7 @@ const presentationReducer = (state = initialState, action: Action) => {
           ...state,
           selectedSlide: lastState.selectedSlide,
           slides: lastState.slides,
+          title: lastState.title,
           undoStack: [...(state.undoStack ?? []), state],
           redoStack: state.redoStack.slice(0, -1),
         };

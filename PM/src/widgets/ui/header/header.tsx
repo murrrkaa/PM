@@ -1,5 +1,5 @@
 import style from "./header.module.css";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { EditingSlide } from "../../../shared/ui/components/design-button";
 import { IconHome } from "../../../shared/ui/icons/home";
 import { BurgerMenu } from "../../../features/ui/burger-menu/ui/components";
@@ -15,12 +15,17 @@ import { createPDF, saveDocument } from "../../model/exportDocument";
 export const Header = () => {
   const slides = useSelector((state: RootState) => state.slides);
   const title = useSelector((state: RootState) => state?.title);
+  const [value, setValue] = useState(title);
   // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    dispatch(changeTitle(e.target.value));
+    setValue(e.target.value);
+  };
+
+  const handleBlur = () => {
+    dispatch(changeTitle(value));
   };
 
   const handleExportDocument = () => {
@@ -35,20 +40,25 @@ export const Header = () => {
     saveDocument(slides, title);
   };
 
+  useEffect(() => {
+    setValue(title);
+  }, [title]);
+
   return (
     <header className={style.header}>
       <div className={style.header__wrapper}>
         <div className={style.header__top}>
-          <EditingSlide icon={IconHome} description={"Главня"} />
+          <EditingSlide icon={IconHome} description={"Главная"} />
           <BurgerMenu />
         </div>
         <div className={style.title__presentation}>
           <input
             onChange={handleChange}
             className={style.title__input}
-            value={title}
+            value={value}
             type="text"
             maxLength={100}
+            onBlur={handleBlur}
           />
         </div>
         <div className={style.header__export}>
